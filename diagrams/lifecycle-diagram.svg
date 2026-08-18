@@ -1,0 +1,154 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1700 660" role="img"
+     aria-label="Six-stage customer lifecycle: Inquiry, Contacted, Registered, Agreement signed, Access granted, Attended/CE issued, each transition driven by a specific n8n workflow, with Agreement signed and Access granted cascading in the same automated step.">
+
+  <defs>
+    <radialGradient id="glow" cx="50%" cy="30%" r="70%">
+      <stop offset="0%" stop-color="#171d2c"/>
+      <stop offset="100%" stop-color="#0b1220"/>
+    </radialGradient>
+    <radialGradient id="nodeFill" cx="35%" cy="30%" r="80%">
+      <stop offset="0%" stop-color="#111827"/>
+      <stop offset="100%" stop-color="#020617"/>
+    </radialGradient>
+    <linearGradient id="ribbon" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#8a6a35"/>
+      <stop offset="50%" stop-color="#d4b483"/>
+      <stop offset="100%" stop-color="#8a6a35"/>
+    </linearGradient>
+    <linearGradient id="goldText" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#c5a065"/>
+      <stop offset="100%" stop-color="#d4b483"/>
+    </linearGradient>
+    <filter id="nodeGlow" x="-80%" y="-80%" width="260%" height="260%">
+      <feDropShadow dx="0" dy="0" stdDeviation="7" flood-color="#c5a065" flood-opacity="0.5"/>
+      <feDropShadow dx="0" dy="4" stdDeviation="6" flood-color="#000000" flood-opacity="0.5"/>
+    </filter>
+    <filter id="boltGlow" x="-100%" y="-100%" width="300%" height="300%">
+      <feGaussianBlur stdDeviation="4" result="blur"/>
+      <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+
+    <symbol id="icon-inquiry" viewBox="0 0 40 40">
+      <rect x="5" y="8" width="30" height="20" rx="5" fill="none" stroke="#d4b483" stroke-width="2.3"/>
+      <path d="M14 28 L14 34 L20 28 Z" fill="#d4b483"/>
+      <circle cx="14" cy="18" r="1.7" fill="#d4b483"/>
+      <circle cx="20" cy="18" r="1.7" fill="#d4b483"/>
+      <circle cx="26" cy="18" r="1.7" fill="#d4b483"/>
+    </symbol>
+    <symbol id="icon-contacted" viewBox="0 0 40 40">
+      <rect x="5" y="10" width="30" height="20" rx="3" fill="none" stroke="#d4b483" stroke-width="2.3"/>
+      <path d="M6 12 L20 24 L34 12" fill="none" stroke="#d4b483" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round"/>
+    </symbol>
+    <symbol id="icon-registered" viewBox="0 0 40 40">
+      <path d="M11 15 h18 l2 18 a3 3 0 0 1 -3 3 h-16 a3 3 0 0 1 -3 -3 z" fill="none" stroke="#d4b483" stroke-width="2.3" stroke-linejoin="round"/>
+      <path d="M15 15 v-3 a5 5 0 0 1 10 0 v3" fill="none" stroke="#d4b483" stroke-width="2.3" stroke-linecap="round"/>
+    </symbol>
+    <symbol id="icon-agreement" viewBox="0 0 40 40">
+      <path d="M12 28 L26 14 a2.5 2.5 0 0 1 3.5 3.5 L15 32 l-5 1 z" fill="none" stroke="#d4b483" stroke-width="2.3" stroke-linejoin="round"/>
+      <path d="M8 34 q4 -3 8 0 q4 3 8 0" fill="none" stroke="#d4b483" stroke-width="2" stroke-linecap="round"/>
+    </symbol>
+    <symbol id="icon-access" viewBox="0 0 40 40">
+      <rect x="10" y="18" width="20" height="15" rx="3" fill="none" stroke="#d4b483" stroke-width="2.3"/>
+      <path d="M14 18 v-4 a6 6 0 0 1 11 -3.5" fill="none" stroke="#d4b483" stroke-width="2.3" stroke-linecap="round"/>
+      <circle cx="20" cy="25" r="1.9" fill="#d4b483"/>
+    </symbol>
+    <symbol id="icon-certificate" viewBox="0 0 40 40">
+      <circle cx="20" cy="16" r="9" fill="none" stroke="#d4b483" stroke-width="2.3"/>
+      <path d="M15 23 L11 34 L17 31 L20 35 L23 31 L29 34 L25 23" fill="none" stroke="#d4b483" stroke-width="2" stroke-linejoin="round"/>
+      <path d="M16 16 l3 3 l6 -6" fill="none" stroke="#d4b483" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+    </symbol>
+  </defs>
+
+  <rect x="0" y="0" width="1700" height="660" fill="url(#glow)"/>
+  <rect x="0" y="0" width="1700" height="4" fill="#c5a065"/>
+
+  <!-- Title block -->
+  <text x="850" y="46" text-anchor="middle" font-family="Manrope, -apple-system, 'Segoe UI', 'Helvetica Neue', Arial, sans-serif"
+        font-size="13" font-weight="700" letter-spacing="4" fill="#c5a065">PST ACADEMY &#183; AIRTABLE STAGE PIPELINE</text>
+  <text x="850" y="90" text-anchor="middle" font-family="Manrope, -apple-system, 'Segoe UI', 'Helvetica Neue', Arial, sans-serif"
+        font-size="34" font-weight="800" letter-spacing="-0.5" fill="url(#goldText)">Customer Lifecycle</text>
+  <text x="850" y="114" text-anchor="middle" font-family="Manrope, -apple-system, 'Segoe UI', 'Helvetica Neue', Arial, sans-serif"
+        font-size="13" font-weight="500" fill="#9ca3af">Customer-facing path only &#8212; staff/operational workflows not shown</text>
+
+  <!-- Flowing ribbon (drawn behind nodes) -->
+  <path d="M 140,238 C 282,238 282,322 424,322 C 566,322 566,238 708,238 C 850,238 850,322 992,322 C 1134,322 1134,238 1276,238 C 1418,238 1418,322 1560,322"
+        fill="none" stroke="url(#ribbon)" stroke-width="5" stroke-linecap="round" opacity="0.85"/>
+
+  <!-- ===== Node 1: Inquiry (up) ===== -->
+  <circle cx="140" cy="188" r="17" fill="#020617" stroke="#c5a065" stroke-width="2"/>
+  <text x="140" y="193" text-anchor="middle" font-family="Manrope, sans-serif" font-size="15" font-weight="700" fill="#d4b483">01</text>
+  <rect x="98" y="196" width="84" height="84" rx="20" fill="url(#nodeFill)" stroke="#c5a065" stroke-opacity="0.7" stroke-width="1.5" filter="url(#nodeGlow)"/>
+  <use href="#icon-inquiry" x="118" y="216" width="44" height="44"/>
+  <text x="140" y="310" text-anchor="middle" font-family="Manrope, sans-serif" font-size="15" font-weight="700" letter-spacing="1.5" fill="#e5e7eb">INQUIRY</text>
+
+  <!-- ===== Node 2: Contacted (down) ===== -->
+  <circle cx="424" cy="272" r="17" fill="#020617" stroke="#c5a065" stroke-width="2"/>
+  <text x="424" y="277" text-anchor="middle" font-family="Manrope, sans-serif" font-size="15" font-weight="700" fill="#d4b483">02</text>
+  <rect x="382" y="280" width="84" height="84" rx="20" fill="url(#nodeFill)" stroke="#c5a065" stroke-opacity="0.7" stroke-width="1.5" filter="url(#nodeGlow)"/>
+  <use href="#icon-contacted" x="402" y="300" width="44" height="44"/>
+  <text x="424" y="394" text-anchor="middle" font-family="Manrope, sans-serif" font-size="15" font-weight="700" letter-spacing="1.5" fill="#e5e7eb">CONTACTED</text>
+
+  <!-- ===== Node 3: Registered (up) ===== -->
+  <circle cx="708" cy="188" r="17" fill="#020617" stroke="#c5a065" stroke-width="2"/>
+  <text x="708" y="193" text-anchor="middle" font-family="Manrope, sans-serif" font-size="15" font-weight="700" fill="#d4b483">03</text>
+  <rect x="666" y="196" width="84" height="84" rx="20" fill="url(#nodeFill)" stroke="#c5a065" stroke-opacity="0.7" stroke-width="1.5" filter="url(#nodeGlow)"/>
+  <use href="#icon-registered" x="686" y="216" width="44" height="44"/>
+  <text x="708" y="310" text-anchor="middle" font-family="Manrope, sans-serif" font-size="15" font-weight="700" letter-spacing="1.5" fill="#e5e7eb">REGISTERED</text>
+
+  <!-- ===== Node 4: Agreement signed (down) ===== -->
+  <circle cx="992" cy="272" r="17" fill="#020617" stroke="#c5a065" stroke-width="2"/>
+  <text x="992" y="277" text-anchor="middle" font-family="Manrope, sans-serif" font-size="15" font-weight="700" fill="#d4b483">04</text>
+  <rect x="950" y="280" width="84" height="84" rx="20" fill="url(#nodeFill)" stroke="#c5a065" stroke-opacity="0.7" stroke-width="1.5" filter="url(#nodeGlow)"/>
+  <use href="#icon-agreement" x="970" y="300" width="44" height="44"/>
+  <text x="992" y="394" text-anchor="middle" font-family="Manrope, sans-serif" font-size="15" font-weight="700" letter-spacing="1.5" fill="#e5e7eb">AGREEMENT</text>
+  <text x="992" y="412" text-anchor="middle" font-family="Manrope, sans-serif" font-size="15" font-weight="700" letter-spacing="1.5" fill="#e5e7eb">SIGNED</text>
+
+  <!-- Instant-cascade bolt, between node 4 and node 5 -->
+  <g filter="url(#boltGlow)">
+    <path d="M1128 262 L1118 282 L1127 282 L1122 300 L1140 278 L1131 278 Z" fill="#d4b483"/>
+  </g>
+  <text x="1134" y="252" text-anchor="middle" font-family="Manrope, sans-serif" font-size="11" font-weight="700" letter-spacing="1" fill="#d4b483">SAME STEP</text>
+
+  <!-- ===== Node 5: Access granted (up) ===== -->
+  <circle cx="1276" cy="188" r="17" fill="#020617" stroke="#c5a065" stroke-width="2"/>
+  <text x="1276" y="193" text-anchor="middle" font-family="Manrope, sans-serif" font-size="15" font-weight="700" fill="#d4b483">05</text>
+  <rect x="1234" y="196" width="84" height="84" rx="20" fill="url(#nodeFill)" stroke="#c5a065" stroke-opacity="0.7" stroke-width="1.5" filter="url(#nodeGlow)"/>
+  <use href="#icon-access" x="1254" y="216" width="44" height="44"/>
+  <text x="1276" y="310" text-anchor="middle" font-family="Manrope, sans-serif" font-size="15" font-weight="700" letter-spacing="1.5" fill="#e5e7eb">ACCESS</text>
+  <text x="1276" y="328" text-anchor="middle" font-family="Manrope, sans-serif" font-size="15" font-weight="700" letter-spacing="1.5" fill="#e5e7eb">GRANTED</text>
+
+  <!-- ===== Node 6: Attended/CE issued (down) ===== -->
+  <circle cx="1560" cy="272" r="17" fill="#020617" stroke="#c5a065" stroke-width="2"/>
+  <text x="1560" y="277" text-anchor="middle" font-family="Manrope, sans-serif" font-size="15" font-weight="700" fill="#d4b483">06</text>
+  <rect x="1518" y="280" width="84" height="84" rx="20" fill="url(#nodeFill)" stroke="#c5a065" stroke-opacity="0.7" stroke-width="1.5" filter="url(#nodeGlow)"/>
+  <use href="#icon-certificate" x="1538" y="300" width="44" height="44"/>
+  <text x="1560" y="394" text-anchor="middle" font-family="Manrope, sans-serif" font-size="15" font-weight="700" letter-spacing="1.5" fill="#e5e7eb">ATTENDED /</text>
+  <text x="1560" y="412" text-anchor="middle" font-family="Manrope, sans-serif" font-size="15" font-weight="700" letter-spacing="1.5" fill="#e5e7eb">CE ISSUED</text>
+
+  <!-- Transition mechanism captions -->
+  <text x="282" y="452" text-anchor="middle" font-family="Manrope, sans-serif" font-size="13" fill="#9ca3af">Staff logs a call/email</text>
+  <text x="282" y="470" text-anchor="middle" font-family="Manrope, sans-serif" font-size="12" font-style="italic" fill="#c5a065">Contact logged &#8594; Contacted stage</text>
+
+  <text x="566" y="452" text-anchor="middle" font-family="Manrope, sans-serif" font-size="13" fill="#9ca3af">Real order placed (WooCommerce)</text>
+  <text x="566" y="470" text-anchor="middle" font-family="Manrope, sans-serif" font-size="12" font-style="italic" fill="#c5a065">Order &#8594; Registered stage</text>
+
+  <text x="850" y="452" text-anchor="middle" font-family="Manrope, sans-serif" font-size="13" fill="#9ca3af">DocuSign envelope signed</text>
+  <text x="850" y="470" text-anchor="middle" font-family="Manrope, sans-serif" font-size="12" font-style="italic" fill="#c5a065">DocuSign completed &#8594; Agreement signed stage</text>
+
+  <text x="1134" y="452" text-anchor="middle" font-family="Manrope, sans-serif" font-size="12" fill="#9ca3af">cascades instantly, no wait</text>
+
+  <text x="1418" y="452" text-anchor="middle" font-family="Manrope, sans-serif" font-size="13" fill="#9ca3af">Staff marks Attended</text>
+  <text x="1418" y="470" text-anchor="middle" font-family="Manrope, sans-serif" font-size="12" font-style="italic" fill="#c5a065">Attendance confirmed &#8594; CE issued stage</text>
+
+  <!-- In-stage side notes -->
+  <text x="708" y="500" text-anchor="middle" font-family="Manrope, sans-serif" font-size="11" font-style="italic" fill="#6b7280">(agreement + signing link sent here, still Registered &#8212; Order completed &#8594; Send agreement)</text>
+  <text x="1276" y="500" text-anchor="middle" font-family="Manrope, sans-serif" font-size="11" font-style="italic" fill="#6b7280">(Welcome Packet emailed &#8212; Online Training tier only)</text>
+
+  <!-- Footnote: single centered note, on the site's lighter section-navy shade to distinguish it as its own section -->
+  <rect x="0" y="530" width="1700" height="130" fill="#0f172a"/>
+  <line x1="40" y1="530" x2="1660" y2="530" stroke="#c5a065" stroke-opacity="0.3" stroke-width="1"/>
+
+  <text x="850" y="568" text-anchor="middle" font-family="Manrope, sans-serif" font-size="12" font-weight="700" letter-spacing="3" fill="#c5a065">SKIP-AHEAD PATH</text>
+  <text x="850" y="592" text-anchor="middle" font-family="Manrope, sans-serif" font-size="13" fill="#9ca3af">A first-time customer who orders without ever inquiring first enters</text>
+  <text x="850" y="610" text-anchor="middle" font-family="Manrope, sans-serif" font-size="13" fill="#9ca3af">directly at Registered &#8212; Inquiry and Contacted aren't required, just the common path.</text>
+</svg>

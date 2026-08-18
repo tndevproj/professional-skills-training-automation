@@ -1,0 +1,1698 @@
+<title>Engineering Notes: PST Academy Lifecycle Automation</title>
+<style>
+  @font-face {
+    font-family: 'Manrope';
+    font-style: normal;
+    font-weight: 200 800;
+    font-display: swap;
+    src: url(data:font/woff2;base64,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) format('woff2');
+  }
+
+  :root {
+    /* Dark, brand-primary (avyxen.com: deep navy + warm gold) */
+    --bg: #0b1220;
+    --bg-raised: #111827;
+    --bg-sunken: #020617;
+    --bg-hover: #171d2c;
+    --ink: #e5e7eb;
+    --ink-soft: #9ca3af;
+    --ink-faint: #6b7280;
+    --accent: #c5a065;
+    --accent-bright: #d4b483;
+    --accent-ink: #0b1220;
+    --good: #7ea88a;
+    --danger: #c1694a;
+    --line: rgba(255, 255, 255, 0.08);
+    --line-strong: rgba(255, 255, 255, 0.16);
+    --shadow: 0 20px 40px rgba(0, 0, 0, 0.35), 0 2px 10px rgba(0, 0, 0, 0.3);
+    --brand: 'Manrope', -apple-system, BlinkMacSystemFont, "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+    --mono: ui-monospace, "SF Mono", "Cascadia Mono", "Roboto Mono", Menlo, Consolas, monospace;
+  }
+
+  @media (prefers-color-scheme: light) {
+    :root {
+      --bg: #f6f3ec;
+      --bg-raised: #ffffff;
+      --bg-sunken: #ece7db;
+      --bg-hover: #ece7db;
+      --ink: #201e1b;
+      --ink-soft: #55524b;
+      --ink-faint: #8b877d;
+      --accent: #a8631f;
+      --accent-bright: #c5a065;
+      --accent-ink: #ffffff;
+      --good: #3f7a5c;
+      --danger: #96392a;
+      --line: rgba(32, 30, 27, 0.14);
+      --line-strong: rgba(32, 30, 27, 0.3);
+      --shadow: 0 1px 2px rgba(32, 30, 27, 0.06), 0 8px 24px rgba(32, 30, 27, 0.06);
+    }
+  }
+  :root[data-theme="dark"] {
+    --bg: #0b1220;
+    --bg-raised: #111827;
+    --bg-sunken: #020617;
+    --bg-hover: #171d2c;
+    --ink: #e5e7eb;
+    --ink-soft: #9ca3af;
+    --ink-faint: #6b7280;
+    --accent: #c5a065;
+    --accent-bright: #d4b483;
+    --accent-ink: #0b1220;
+    --good: #7ea88a;
+    --danger: #c1694a;
+    --line: rgba(255, 255, 255, 0.08);
+    --line-strong: rgba(255, 255, 255, 0.16);
+    --shadow: 0 20px 40px rgba(0, 0, 0, 0.35), 0 2px 10px rgba(0, 0, 0, 0.3);
+  }
+  :root[data-theme="light"] {
+    --bg: #f6f3ec;
+    --bg-raised: #ffffff;
+    --bg-sunken: #ece7db;
+    --bg-hover: #ece7db;
+    --ink: #201e1b;
+    --ink-soft: #55524b;
+    --ink-faint: #8b877d;
+    --accent: #a8631f;
+    --accent-bright: #c5a065;
+    --accent-ink: #ffffff;
+    --good: #3f7a5c;
+    --danger: #96392a;
+    --line: rgba(32, 30, 27, 0.14);
+    --line-strong: rgba(32, 30, 27, 0.3);
+    --shadow: 0 1px 2px rgba(32, 30, 27, 0.06), 0 8px 24px rgba(32, 30, 27, 0.06);
+  }
+
+  * { box-sizing: border-box; }
+  html { background: var(--bg); }
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--ink);
+    font-family: var(--brand);
+    font-size: 17px;
+    font-weight: 500;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    * { animation: none !important; transition: none !important; }
+  }
+
+  a { color: var(--accent-bright); text-decoration-thickness: 1px; text-underline-offset: 2px; }
+  a:focus-visible, button:focus-visible, summary:focus-visible {
+    outline: 2px solid var(--accent-bright);
+    outline-offset: 3px;
+  }
+
+  .page {
+    max-width: 920px;
+    margin: 0 auto;
+    padding: 0 28px 120px;
+  }
+
+  /* ---------- Masthead ---------- */
+  .masthead {
+    padding: 72px 0 44px;
+    border-bottom: 1px solid var(--line-strong);
+    margin-bottom: 56px;
+  }
+  .eyebrow {
+    font-family: var(--mono);
+    font-size: 12px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin: 0 0 18px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .eyebrow::before {
+    content: "";
+    display: inline-block;
+    width: 22px;
+    height: 3px;
+    background: var(--accent);
+  }
+  h1.title {
+    font-family: var(--brand);
+    font-weight: 800;
+    font-size: clamp(34px, 5vw, 50px);
+    line-height: 1.12;
+    margin: 0 0 16px;
+    letter-spacing: -0.02em;
+    text-wrap: balance;
+    color: var(--ink);
+  }
+  h1.title .gold-accent {
+    background: linear-gradient(135deg, var(--accent) 0%, var(--accent-bright) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  .subtitle {
+    font-family: var(--brand);
+    font-weight: 500;
+    font-size: 19px;
+    color: var(--ink-soft);
+    margin: 0 0 28px;
+    max-width: 62ch;
+    text-wrap: balance;
+  }
+  .meta-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px 28px;
+    font-family: var(--mono);
+    font-size: 12.5px;
+    color: var(--ink-faint);
+  }
+  .meta-row span { white-space: nowrap; }
+  .meta-row b { color: var(--ink-soft); font-weight: 600; }
+
+  .disclaimer {
+    margin-top: 28px;
+    padding: 14px 18px;
+    background: var(--bg-sunken);
+    border-left: 3px solid var(--accent);
+    font-size: 14px;
+    color: var(--ink-soft);
+    max-width: 68ch;
+  }
+
+  /* ---------- TOC ---------- */
+  .toc {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 1px;
+    margin-bottom: 72px;
+    border: 1px solid var(--line);
+    background: var(--line);
+  }
+  .toc a {
+    display: block;
+    background: var(--bg-raised);
+    padding: 18px 20px;
+    text-decoration: none;
+    color: var(--ink);
+    text-align: center;
+    transition: background 0.2s ease;
+  }
+  .toc a:hover { background: var(--bg-hover); }
+  .toc .num {
+    font-family: var(--mono);
+    font-size: 12px;
+    color: var(--accent);
+    display: block;
+    margin-bottom: 6px;
+  }
+  .toc .label {
+    font-family: var(--brand);
+    font-weight: 600;
+    font-size: 16.5px;
+  }
+
+  /* ---------- Sections ---------- */
+  section.chapter {
+    position: relative;
+    padding: 8px 0 8px 0;
+    margin-bottom: 8px;
+  }
+  .chapter-head {
+    display: grid;
+    grid-template-columns: 56px 1fr;
+    gap: 20px;
+    align-items: baseline;
+    margin-bottom: 28px;
+    padding-top: 56px;
+    border-top: 1px solid var(--line);
+  }
+  section.chapter:first-of-type .chapter-head { border-top: none; padding-top: 0; }
+  .chapter-num {
+    font-family: var(--mono);
+    font-size: 13px;
+    color: var(--accent);
+    padding-top: 6px;
+  }
+  .chapter-num::before {
+    content: "";
+    display: block;
+    width: 28px;
+    height: 3px;
+    background: var(--accent);
+    margin-bottom: 10px;
+  }
+  h2.chapter-title {
+    font-family: var(--brand);
+    font-weight: 700;
+    font-size: clamp(26px, 3.6vw, 34px);
+    margin: 0;
+    letter-spacing: -0.01em;
+    text-wrap: balance;
+  }
+  .chapter-dek {
+    grid-column: 2;
+    font-size: 16px;
+    color: var(--ink-soft);
+    max-width: 58ch;
+    margin: -14px 0 0;
+  }
+
+  .prose {
+    max-width: 62ch;
+  }
+  .prose.wide { max-width: 68ch; }
+  .prose p { margin: 0 0 18px; }
+  .prose h3 {
+    font-family: var(--brand);
+    font-size: 21px;
+    font-weight: 700;
+    margin: 40px 0 12px;
+    color: var(--ink);
+  }
+  .prose h4 {
+    font-family: var(--brand);
+    font-size: 13px;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--ink-faint);
+    margin: 26px 0 10px;
+    font-weight: 700;
+  }
+  .prose ul, .prose ol { margin: 0 0 18px; padding-left: 22px; }
+  .prose li { margin-bottom: 8px; }
+  .prose strong { color: var(--ink); font-weight: 700; }
+  code {
+    font-family: var(--mono);
+    font-size: 0.86em;
+    background: var(--bg-sunken);
+    color: var(--accent-bright);
+    padding: 0.12em 0.4em;
+    border-radius: 3px;
+  }
+
+  /* ---------- Evidence / log panel ---------- */
+  .evidence {
+    margin: 22px 0 30px;
+    border: 1px solid var(--line-strong);
+    background: var(--bg-raised);
+    box-shadow: var(--shadow);
+    border-radius: 6px;
+    overflow: hidden;
+  }
+  .evidence-label {
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--ink-faint);
+    padding: 10px 16px;
+    border-bottom: 1px solid var(--line);
+    background: var(--bg-sunken);
+  }
+  .evidence pre {
+    margin: 0;
+    padding: 16px 18px;
+    overflow-x: auto;
+    font-family: var(--mono);
+    font-size: 13.5px;
+    line-height: 1.65;
+    color: var(--ink);
+    font-variant-numeric: tabular-nums;
+  }
+  .evidence p {
+    margin: 0;
+    padding: 14px 18px;
+    font-size: 14.5px;
+    color: var(--ink-soft);
+  }
+
+  /* ---------- Bug case cards ---------- */
+  .case {
+    border: 1px solid var(--line-strong);
+    border-radius: 8px;
+    background: var(--bg-raised);
+    box-shadow: var(--shadow);
+    margin: 28px 0 40px;
+    max-width: 68ch;
+    overflow: hidden;
+  }
+  .case-head {
+    padding: 20px 24px 16px;
+    border-bottom: 1px solid var(--line);
+  }
+  .case-head h3 {
+    margin: 0 0 6px;
+    font-family: var(--brand);
+    font-size: 21px;
+    font-weight: 700;
+  }
+  .case-tag {
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--danger);
+  }
+  .case-body { padding: 4px 24px 22px; }
+  .trail {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin: 16px 0 22px;
+  }
+  .trail span {
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    padding: 5px 10px;
+    border-radius: 100px;
+    border: 1px solid var(--line-strong);
+    color: var(--ink-soft);
+  }
+  .trail span::before { content: "\2192 "; color: var(--ink-faint); }
+  .trail span:first-child::before { content: ""; }
+  .trail span.found { color: var(--danger); border-color: color-mix(in srgb, var(--danger) 45%, var(--line-strong)); }
+  .trail span.fixed { color: var(--good); border-color: color-mix(in srgb, var(--good) 45%, var(--line-strong)); }
+  .case-body h4 {
+    font-family: var(--brand);
+    font-size: 12.5px;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--ink-faint);
+    margin: 20px 0 8px;
+    font-weight: 700;
+  }
+  .case-body p { margin: 0 0 14px; font-size: 15.5px; }
+  .case-body p:last-child { margin-bottom: 0; }
+
+  /* ---------- Pull quote / marginalia ---------- */
+  blockquote.pull {
+    margin: 30px 0;
+    max-width: 62ch;
+    padding: 4px 0 4px 20px;
+    border-left: 3px solid var(--accent);
+    font-family: var(--brand);
+    font-weight: 600;
+    font-size: 19px;
+    line-height: 1.5;
+    color: var(--ink);
+  }
+  blockquote.pull cite {
+    display: block;
+    font-family: var(--mono);
+    font-weight: 400;
+    font-size: 11.5px;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--ink-faint);
+    margin-top: 10px;
+  }
+
+  /* ---------- Findings table (unfixed) ---------- */
+  .finding {
+    border: 1px solid var(--line-strong);
+    border-radius: 8px;
+    background: var(--bg-raised);
+    padding: 22px 24px;
+    margin: 24px 0;
+    max-width: 68ch;
+  }
+  .finding-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    gap: 12px;
+    margin-bottom: 10px;
+    flex-wrap: wrap;
+  }
+  .finding-head h4 {
+    font-family: var(--brand);
+    font-size: 18px;
+    font-weight: 700;
+    margin: 0;
+    color: var(--ink);
+  }
+  .risk-chip {
+    font-family: var(--mono);
+    font-size: 10.5px;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    padding: 4px 9px;
+    border-radius: 100px;
+    background: var(--bg-sunken);
+    color: var(--ink-soft);
+    white-space: nowrap;
+  }
+  .finding p { font-size: 15px; margin: 0 0 10px; }
+  .finding p:last-child { margin-bottom: 0; }
+  .finding .why { color: var(--ink-soft); font-size: 14px; }
+
+  /* ---------- Stat strip ---------- */
+  .stats {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 1px;
+    background: var(--line);
+    border: 1px solid var(--line);
+    margin: 30px 0 40px;
+    max-width: 68ch;
+  }
+  .stat {
+    background: var(--bg-raised);
+    padding: 18px 18px 16px;
+  }
+  .stat .n {
+    font-family: var(--brand);
+    font-size: 30px;
+    font-weight: 800;
+    line-height: 1;
+    font-variant-numeric: tabular-nums;
+    background: linear-gradient(135deg, var(--accent) 0%, var(--accent-bright) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  .stat .d {
+    font-size: 12.5px;
+    color: var(--ink-soft);
+    margin-top: 6px;
+  }
+
+  /* ---------- Closing ---------- */
+  .closing {
+    margin-top: 40px;
+    padding: 40px 32px;
+    background: radial-gradient(ellipse at 30% 0%, rgba(197, 160, 101, 0.06) 0%, transparent 60%), var(--bg-raised);
+    border: 1px solid var(--line-strong);
+    border-radius: 10px;
+    max-width: 68ch;
+    box-shadow: var(--shadow);
+  }
+  .closing h3 {
+    font-family: var(--brand);
+    font-weight: 700;
+    font-size: 24px;
+    margin: 0 0 14px;
+  }
+  .cta {
+    margin-top: 22px;
+    display: flex;
+    gap: 14px;
+    flex-wrap: wrap;
+    font-family: var(--mono);
+    font-size: 13px;
+    color: var(--ink-soft);
+  }
+
+  footer.colophon {
+    margin-top: 80px;
+    padding-top: 24px;
+    border-top: 1px solid var(--line-strong);
+    font-family: var(--mono);
+    font-size: 12px;
+    color: var(--ink-faint);
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
+  @media print {
+    /* Found via a real print-to-PDF test: the default :root tokens are the dark
+       brand palette. Without overriding them here, every component that sets its
+       own text color via var(--ink)/var(--ink-soft)/var(--ink-faint) keeps
+       printing pale-on-dark colors on a white page, near-invisible with
+       "background graphics" off in the print dialog (the common default). The
+       closing section and footer are almost entirely those variables, which is
+       why they rendered as blank trailing pages. Force every token to a
+       print-safe, high-contrast set instead of touching each selector. */
+    :root {
+      --bg: #ffffff;
+      --bg-raised: #ffffff;
+      --bg-sunken: #f2efe6;
+      --bg-hover: #f2efe6;
+      --ink: #1a1a1a;
+      --ink-soft: #43413c;
+      --ink-faint: #6b6862;
+      --accent: #8a5518;
+      --accent-bright: #8a5518;
+      --accent-ink: #ffffff;
+      --good: #2f6b4c;
+      --danger: #96392a;
+      --line: rgba(0, 0, 0, 0.15);
+      --line-strong: rgba(0, 0, 0, 0.32);
+      --shadow: none;
+    }
+    body { background: #fff; color: #1a1a1a; font-size: 12.5px; }
+    .page { max-width: 100%; padding: 0 12px 24px; }
+    .masthead { padding-top: 0; }
+    .closing { margin-top: 24px; }
+    footer.colophon { margin-top: 32px; }
+    /* break-inside:avoid combined with overflow:hidden + border-radius on a block
+       that doesn't fit the remaining page space is a known Chrome print-pagination
+       bug: instead of flowing the block onto the next page cleanly, it can insert
+       a blank page first. Removing overflow:hidden (below) already removes that
+       trigger, so break-inside:avoid can stay on for the short boxes (evidence,
+       finding, closing), since they're small enough to reliably fit in the remaining
+       page space, so keeping them intact reads better than letting them split.
+       .case is the exception: those run several paragraphs long and are the ones
+       most likely to not fit near a page boundary, so they're left free to break
+       naturally rather than risk the same bug reappearing on the longest boxes. */
+    .evidence, .finding, .closing { box-shadow: none; break-inside: avoid; }
+    .case { box-shadow: none; break-inside: auto; }
+    .evidence, .case { overflow: visible; }
+    .chapter-head { break-after: avoid; }
+    /* Closing is short but break-inside:avoid on it can still leave the "06
+       Closing" heading stranded with a near-empty page above the box if it
+       lands unluckily. Starting it on a fresh page sidesteps that: it reads as
+       a deliberate chapter break instead of an unexplained gap. */
+    #close { break-before: page; }
+    .case-head { break-after: avoid; }
+    a { color: inherit; text-decoration: none; }
+    .toc a:hover { background: none; }
+    h1.title .gold-accent, .stat .n {
+      -webkit-text-fill-color: initial;
+      background: none;
+      color: #8a5518;
+    }
+  }
+
+  @media (max-width: 640px) {
+    .chapter-head { grid-template-columns: 1fr; gap: 6px; }
+    .chapter-dek { grid-column: 1; }
+    .masthead { padding-top: 44px; }
+  }
+</style>
+
+<div class="page">
+
+  <header class="masthead">
+    <p class="eyebrow">Technical write-up &middot; Avyxen LLC</p>
+    <h1 class="title">Building a system that <span class="gold-accent">fails loudly</span> instead of quietly</h1>
+    <p class="subtitle">Security patterns, real bugs, and the verification discipline behind an n8n lifecycle-automation build: what held up, what broke, and how each break was actually caught.</p>
+    <div class="meta-row">
+      <span><b>System:</b> n8n &middot; Airtable &middot; WordPress/WooCommerce &middot; Stripe &middot; DocuSign &middot; Gmail &middot; Resend &middot; Slack</span>
+      <span><b>Author:</b> Tony Ngo, AI Automation Specialist</span>
+      <span><b>Role:</b> design, build, and audit of the full pipeline</span>
+    </div>
+    <div class="disclaimer">
+      This write-up documents a portfolio demonstration system (PST Academy) built to interview-grade
+      standard, not a live client deployment. Names attached to test records throughout (Bruce Banner,
+      Peter Parker, Steve Rogers) are fictional test personas, not real customers. Workflow internals
+      (raw JSON, record IDs, credentials) are intentionally omitted; what follows is the reasoning,
+      not the exportable source.
+    </div>
+  </header>
+
+  <nav class="toc" aria-label="Table of contents">
+    <a href="#intro"><span class="num">01</span><span class="label">What this system does</span></a>
+    <a href="#patterns"><span class="num">02</span><span class="label">Security &amp; reliability patterns</span></a>
+    <a href="#bugs"><span class="num">03</span><span class="label">Real bugs, found and fixed</span></a>
+    <a href="#discipline"><span class="num">04</span><span class="label">Verification discipline</span></a>
+    <a href="#unfixed"><span class="num">05</span><span class="label">Left unfixed, on purpose</span></a>
+    <a href="#close"><span class="num">06</span><span class="label">Closing</span></a>
+  </nav>
+
+  <!-- ============ 01 INTRO ============ -->
+  <section class="chapter" id="intro">
+    <div class="chapter-head">
+      <span class="chapter-num">01</span>
+      <h2 class="chapter-title">What this system does</h2>
+    </div>
+    <p class="chapter-dek">One board, one row per person, moved forward by real events, not a demo of buttons: a system that has to survive real webhooks, real race conditions, and real human typos.</p>
+
+    <div class="prose wide">
+      <p>PST Academy sells a certification course in three tiers. Behind the storefront sits a lifecycle
+      board, one row per prospective student, one column per stage: <em>Inquiry &rarr; Contacted &rarr;
+      Registered &rarr; Agreement Signed &rarr; Access Granted &rarr; Attended/CE Issued.</em> Eight n8n workflows run the
+      system: six move a row forward as real events happen (a form submission, a completed order, a
+      signed agreement, a logged phone call, a certificate of attendance), and two are supporting
+      paths that deliberately advance no one: a signing-link redirect that re-issues expired links, and a
+      staff-triggered certificate resend. Nothing moves a card by hand except the parts
+      that genuinely require human judgment: following up, correcting a mistake, deciding a refund.</p>
+
+      <p>Built on WordPress and WooCommerce for this demo, but that's the swappable part, not the
+      core. The trigger layer, whatever fires "a form was submitted" or "an order was paid", is
+      deliberately isolated from everything else: the dedup-by-email upsert, the no-regression
+      guard, the atomic-claim pattern, the stage model itself. The design intent is that pointing
+      the same board at Shopify and Stripe instead of WooCommerce, or Jotform instead of WPForms,
+      would only mean swapping the trigger nodes; the security and reliability patterns underneath
+      wouldn't need to change. That's a design property, not a claim proven here: this build has
+      only ever been tested against the platforms it was actually built on.</p>
+
+      <p>On this specific platform, that trigger layer is a small custom bridge: a must-use
+      WordPress plugin that listens for the real WordPress or WooCommerce event and forwards it to
+      n8n as a webhook call. It's the only custom code sitting between the storefront and the
+      automation itself; everything past that boundary is the reusable core described above.</p>
+
+      <p>Picture one applicant, Maria, moving through it: she fills out an inquiry form and her row
+      appears at <em>Inquiry</em> within seconds, a Slack ping and an email already in the team's
+      queue. A staff member reaches out (a call, an email, or a quick reply in the site's Tidio
+      chat) and logs the attempt; her row slides itself to
+      <em>Contacted</em> without anyone dragging a card. She buys the Online Training tier; the same
+      row (not a duplicate) advances to <em>Registered</em>, pulling the product she actually bought,
+      not the one she originally asked about. She e-signs the participation agreement over a link
+      delivered by email; the row advances again, automatically, once DocuSign reports the signature
+      back. She attends, staff mark her attended, and a certificate generates itself with the correct
+      CE hours for her tier.</p>
+
+      <p>Inquiry isn't a required gate Maria has to pass through first. It's simply the earliest event
+      the system knows how to react to. Plenty of real applicants never submit that form at all: they
+      call the number on the website, message the team on social media, meet someone from the team
+      at an event, or just decide to buy outright. When an order arrives from someone the board has never seen, the system doesn't wait
+      for a missing inquiry that will never come. It creates that person's row fresh, straight at
+      <em>Registered</em>. The stages describe where someone stands, not a checklist everyone must
+      complete in order.</p>
+
+      <p>Every one of those automatic hops is a place where something can go wrong: an attacker can
+      try to forge the event, two genuine events can race each other and leave the board in a state
+      nobody intended, or a staff member can enter something that's present but wrong, an attendance
+      date typed a day off, a checkbox clicked before the agreement was actually signed. The rest of
+      this document is about all three: the patterns built in from the start to catch each one, and,
+      just as importantly, the real failures that got through anyway and how they were actually
+      caught, not just how they were fixed.</p>
+
+      <p>That second half is the part worth reading closely. Anyone can claim a system is secure and
+      reliable. What follows is the harder, more honest version: specific bugs, specific root causes,
+      and specific evidence that the fix actually worked, including two bugs that survived multiple
+      earlier passes before a human reading the actual output caught them.</p>
+    </div>
+  </section>
+
+  <!-- ============ 02 PATTERNS ============ -->
+  <section class="chapter" id="patterns">
+    <div class="chapter-head">
+      <span class="chapter-num">02</span>
+      <h2 class="chapter-title">Security &amp; reliability patterns</h2>
+    </div>
+    <p class="chapter-dek">The patterns that make "two events arrive at once" and "someone forges a request" boring, survivable problems instead of live incidents.</p>
+
+    <div class="prose wide">
+
+      <h3>Proving a request is genuine: HMAC signature verification</h3>
+      <p>The order-completed webhook is a public URL. Without a check, anyone who discovered it could
+      POST a forged "order paid" event and walk straight to a real certificate with no actual payment.
+      WooCommerce and n8n share a secret known only to those two systems, closer to a wax seal than a
+      password. WooCommerce signs every webhook payload with <code>HMAC-SHA256(payload, secret)</code>
+      and attaches it as a header; n8n recomputes the same signature independently and compares before
+      any business logic runs. A mismatch is rejected outright, no logic executed at all.</p>
+
+      <h3>Answering "have I already done this?": the atomic-claim pattern</h3>
+      <p>Two webhook deliveries can arrive within milliseconds of each other: WooCommerce firing
+      "order placed" and "order completed" back to back is a real, observed case. A naive
+      "look up, then create-or-update" sequence leaves a window where both executions see "not found"
+      and both create a duplicate row. The fix replaces that two-step sequence with a single upsert
+      call against a shared table keyed on a unique event string, and lets the destination database,
+      not n8n, arbitrate the race: whichever write lands first creates the row; every later write for
+      the same key just matches and updates it.</p>
+
+      <div class="evidence">
+        <div class="evidence-label">Confirmed under genuine simultaneous firing, not sequential testing</div>
+        <pre>PATCH  Processed Events table
+{
+  "performUpsert": { "fieldsToMergeOn": ["Event Key"] },
+  "typecast": true,
+  "records": [{ "fields": { "Event Key": "agreement-claim-{{ billing email }}" } }]
+}
+
+If created_records.length &gt; 0  ->  this execution won the claim  ->  proceed
+If created_records.length == 0 ->  someone already won it  ->  stop, no duplicate</pre>
+      </div>
+
+      <p>One shared table covers every stage's idempotency check: a prefix on the key
+      (<code>inquiry-...</code>, <code>agreement-claim-...</code>, <code>ce-issued-claim-...</code>) is what
+      keeps different claim types from colliding. The same mechanism does double duty later as a
+      <strong>notify-once</strong> guard, not just a create-once guard (see the date-anomaly guard
+      below).</p>
+
+      <h3>Never moving a record backward: no-regression guards</h3>
+      <p>A duplicate or late-arriving event must never undo real progress already made. Before any
+      stage-advancing action runs, the workflow checks where the record currently sits and only
+      proceeds if the move is genuinely forward. The shape of that check depends on whether the
+      guarded action itself moves the stage field: sending an agreement, for instance, doesn't change
+      stage at all under this system's design, so stage alone can't tell "already sent" from "not yet
+      sent." That gap is exactly what caused a real early bug: toggling an order's status re-sent a
+      brand-new signing envelope every time. The fix pairs the stage check with a dedicated timestamp
+      field that only gets set once the action actually happens.</p>
+
+      <h3>Catching bad data, not just missing data: the date-anomaly guard</h3>
+      <p>A checkbox and a date field are easy for staff to get right in spirit and wrong in the
+      details: attendance marked before the agreement was actually signed, or a future date typed by
+      mistake. The certificate-issuance guard checks logical consistency, not just presence:
+      attendance date can't precede the signed agreement, and can't be in the future. A failure here
+      doesn't just block the certificate. It fires a notify-once alert (via the same atomic-claim
+      mechanism above) naming the specific problem, so staff know exactly what to go fix rather than
+      just that something's wrong.</p>
+
+      <h3>Neutralizing injected input: Slack and Airtable</h3>
+      <p>A public form field is attacker-controlled text. Slack's <code>&lt;!channel&gt;</code> mention
+      syntax is real, server-interpreted markup. A customer's name field containing that literal
+      string, pasted unescaped into an internal notification, would mass-ping the whole team. Every
+      customer-originated field going into a Slack message is escaped
+      (<code>&amp;</code>/<code>&lt;</code>/<code>&gt;</code>) before it's interpolated, verified with a
+      real injected payload sent through a live order: confirmed to render as inert literal text,
+      never as an executed mention.</p>
+      <p>The same class of problem exists one layer down: Airtable's search filters are themselves a
+      small formula language, and an unescaped quote character in a search value can break out of the
+      intended string and get interpreted as formula syntax, the same underlying failure shape as SQL
+      injection, against a different query language. The lookup that matches a signed agreement back
+      to its contact record escapes that quote character. Proving it mattered meant tracing the real
+      path a malicious value would have to travel to reach it: a customer would need to check out with
+      a quote character in their billing email, since that's the only place this value originates.
+      A real checkout attempt with exactly that character was rejected outright by WooCommerce's own
+      email validation before an order could even be created, and separately, no mainstream email
+      provider delivers to an address shaped that way in the first place, so even a different intake
+      path couldn't get a real signed agreement in front of a real inbox to complete the loop. The
+      escaping stays in place as cheap, correct-in-principle defense, but the real finding is stronger
+      than "the code handles it": the legitimate path to exploit it is structurally closed, verified
+      against the real checkout, not assumed.</p>
+
+      <h3>Signed, expiring links with constant-time comparison</h3>
+      <p>The signing-link a customer receives by email carries a record reference and an expiry,
+      signed together with an HMAC over both values, not just a fixed secret alone, so tampering
+      with either value invalidates the signature. Verification uses
+      <code>crypto.timingSafeEqual</code> rather than plain string equality, closing a theoretical
+      timing side-channel where an attacker with very precise measurement could in principle infer a
+      correct signature one character at a time instead of guessing it whole. All three failure
+      modes (missing parameters, bad signature, expired link) show the same generic public message,
+      with the real reason routed only to an internal alert for troubleshooting.</p>
+
+      <h3>Retry, and the gap it didn't originally cover</h3>
+      <p>The writes on the most expensive paths (the certificate generation chain, the signing
+      envelope, and the stage stamps in the agreement, contacted, CE-issued and both order flows)
+      retry automatically on failure: three attempts, a flat two-second interval between them.
+      Coverage is not universal, and it is worth stating precisely instead of rounding up to
+      "everything retries": of the 30 data-write operations across the system, <strong>6 still carry
+      no retry at all</strong>: three record writes in the inquiry flow, the two flag-clears in the
+      certificate resend, and the signing-session call in the redirect flow. Five of those six sit
+      behind an idempotency or atomic-claim gate, so a retry that did fire would be safe; they were
+      simply never configured for it. That is a gap rather than a decision, and worth naming as one:
+      the retry that exists was deliberately placed on the expensive paths, but its absence elsewhere
+      was never reasoned about either way. The sixth is different in kind: the signing-session call
+      happens on the live redirect path with a customer waiting on the response, where a failure
+      surfaces immediately to that person rather than disappearing into a log.</p>
+
+      <p>Four of those six gaps were closed after the fact, and why they mattered is more useful than
+      the count. When an order comes in, the system writes the customer to the board in <strong>two
+      separate steps</strong>: first it creates their record, then it sets their stage to
+      <em>Registered</em>. Only the first step retried on failure. That is the wrong way round. The
+      record is created with no stage on it at all, and the step that fills the stage in was the
+      unprotected one.</p>
+
+      <p>The board groups cards by stage, so a record with no stage drops into a column called
+      <strong>Uncategorized</strong>. Nothing retried that write, and nothing came back later to
+      finish the job. So a single brief Airtable hiccup left a real customer parked there for good,
+      their card showing an order number and a total but no stage, looking to staff like a glitch
+      rather than a fault. All four of those stage writes now retry three times, two seconds apart.</p>
+
+      <p>That was not left as an argument on paper. The Airtable login was deliberately replaced with
+      an invalid one so every write to Airtable would fail, and then a real order was placed through
+      the real checkout, so WooCommerce sent its own genuine webhook. The step that creates the record
+      signs in a different way, so it kept working. Only the stage write failed, which is exactly the
+      situation being tested.</p>
+
+      <div class="evidence">
+        <div class="evidence-label">Real result: forced failure, real order through real checkout</div>
+        <pre>Stage write (Advance Stage=Registered):  5,547 ms
+Upsert on the same run, succeeded:         714 ms
+  3 attempts with two 2-second waits is ~4,000 ms of waiting plus three
+  ~500 ms calls, which is what 5,547 ms is made of
+
+Node's own error snapshot, captured during the failure:
+  "retryOnFail": true, "maxTries": 3, "waitBetweenTries": 2000
+  401 - {"error":{"type":"UNAUTHORIZED","message":"Invalid authentication token"}}
+
+Resulting board state: contact created, order number and totals present,
+  Stage blank -> the card sat in Uncategorized, exactly as described
+
+Both order workflows fired on the same second; the atomic upsert matched
+  rather than duplicated, so the race produced one contact, not two
+
+Credential restored -> next real run: 2.16 s, back to normal</pre>
+      </div>
+
+      <p>Retry narrows that window; it does not close it. A failure lasting longer than three
+      attempts still leaves the card stuck, and the real answer is a routine sweep that looks for
+      records with no stage and finishes the job. This build does not have one, though as of the
+      alerting described below the failure at least announces itself instead of passing unnoticed.</p>
+
+      <p>And to be clear about what the test above does and doesn't cover: it proves retry fires on
+      the two order flows. The six writes that still have no retry were not tested this way, and the
+      earlier forced-failure test in Section 04 was run on different nodes.</p>
+
+      <p>That said, the retry that does exist is a
+      deliberate, honest tradeoff, not an oversight: this is fixed-interval
+      retry, not true exponential backoff, because n8n's native retry setting doesn't offer backoff
+      natively, and at this system's real concurrency (never more than one or two overlapping events in
+      the same few seconds) the "thundering herd" problem that backoff exists to solve simply doesn't
+      apply here. What retry doesn't do is finish the job once all three attempts are exhausted, and
+      for most of this build nothing announced that it had given up. That gap is closed by the
+      alerting described next.
+      Proving the retry actually fires, rather than just being switched on, took two separate
+      forced-failure tests: Section 04 covers the search nodes, and the test above covers the order
+      flows.</p>
+
+      <h3>Knowing when something failed</h3>
+      <p>Retry buys three attempts. It does not tell anyone when all three are used up. A node that
+      failed three times in a row simply stopped, and the only way to find out was to go looking.
+      Every workflow now names a single shared alerting workflow as its error handler, so any
+      execution that fails anywhere sends the workflow name, the node that stopped, the error text,
+      and a link straight to that execution, to a dedicated Slack channel and an inbox.</p>
+
+      <p>Two details decide how much that actually covers. The error handler is a per-workflow
+      setting, not a global one, so a workflow that does not name it fails in complete silence. That
+      is why all eight were changed here when only two of them needed the retry fix. And because
+      retry sits in front of the alert, a blip that recovers on the second attempt never sends
+      anything at all; only failures that used up all three attempts reach a channel, which is what
+      keeps the alerting attached to problems that actually persisted.</p>
+
+      <p>The interesting part was not the alert. It was making the alert survivable. Two of the
+      polling workflows run every 60 seconds and three run every five minutes, so a single broken
+      Airtable credential fails 156 times an hour. Those intervals are settings and can be changed to
+      whatever a client wants. Alerting on each one produces 156 Slack messages
+      and 156 emails, and the predictable result is a muted channel, which is worse than no alerting
+      at all because it still looks like coverage. A suppression step sits between the failure and the
+      notification, keyed on the workflow name plus the current hour: the first failure of a given
+      workflow speaks, the rest of that hour stays quiet, and if the problem is still there an hour
+      later it speaks again. The alerts also go to their own channel rather than the staff-facing ones,
+      since "a node threw a 401" is not something ordinary staff can act on the way "a new inquiry came
+      in" is.</p>
+
+      <p>That guard deliberately keeps its state inside the automation engine rather than in Airtable,
+      even though Airtable is where this system stores everything else. An alerting path must not
+      depend on the thing most likely to be broken, and Airtable is exactly that: one credential feeds
+      eighteen nodes across every workflow, so routing the suppression check through Airtable would
+      mean an Airtable outage silences the alert about the Airtable outage.</p>
+
+      <div class="evidence">
+        <div class="evidence-label">Real result: alerting under a genuine credential outage</div>
+        <pre>Airtable credential replaced with an invalid token, real scheduled runs
+
+26 real 401 failures over ~5.5 minutes, counted from the engine's own logs
+  16:10  13    16:11  3    16:12  3    16:13  3    16:14  3    16:15  1
+
+Alerts delivered: 6 Slack, 6 email. Counts matched exactly, nothing dropped
+
+Contact logged -> Contacted failed 6 times and alerted twice
+  the second alert arrived only when the suppression window rolled over,
+  so suppression and expiry were both observed, not merely configured
+
+Every field populated: workflow name, failed node, error text, and an
+  execution link resolving to the real failed run</pre>
+      </div>
+
+      <p>Three limits are worth stating plainly, because an alerting system people trust is more
+      dangerous when it is quietly incomplete than when it is absent. First, the suppression window is
+      a clock hour rather than a rolling one, so a failure at 14:59 and another at 15:01 will both
+      speak. The length of that window is a setting rather than a fixed property of the design, so a
+      client who wants to hear about repeats sooner can have it shortened. Second, Slack and the inbox are deliberately no longer a complete record: they carry the
+      first failure of each hour by design, and the engine's own execution list is the only place
+      holding every one. A quiet channel does not mean the problem stopped, and both messages say so
+      in their own text rather than leaving that fact in a document nobody rereads.</p>
+
+      <p>Third, and least obvious, this fires on executions that <em>fail</em>. A workflow that
+      finishes successfully while quietly doing nothing produces no alert, and the outage test
+      demonstrated that in a way reasoning alone would not have. One workflow stayed completely silent
+      throughout: its Airtable call sits fourth in the chain, behind a DocuSign query that returned
+      nothing, so the run ended successfully before it ever reached the broken credential. That is
+      correct behaviour, and also a real demonstration that coverage depends on a workflow actually
+      reaching the thing that is broken. During an outage a workflow can stay silent while being just
+      as unable to do its job. The fix is a scheduled health check: one workflow that calls each
+      dependency just to see if it answers, on whatever interval a client chooses, so coverage stops
+      depending on whether real activity happened to reach the broken one. It was left out of this
+      build on purpose, and it is a small addition for a client who wants one.</p>
+
+      <h3>Restricting who can even attempt a connection</h3>
+      <p>The automation engine's own admin login was found, by direct test, reachable from any device
+      on the same local network, not just the machine running it, because the default port binding
+      wasn't loopback-restricted. Fixed by binding explicitly to <code>127.0.0.1</code>. This is
+      defense in depth in its plainest form: don't rely on login credentials as the only barrier when
+      restricting who can even reach the login page is a separate, equally real layer. Confirmed
+      before and after with a direct connection attempt from the machine's real network address, not
+      assumed from the config change alone.</p>
+      <p>Worth being precise about, since it's not a universal rule: loopback-only is the right call
+      specifically because this is a single-operator local build with no public webhook consumers.
+      That same setting would be the wrong call on a real client's cloud-hosted instance that needs
+      to receive genuine public webhooks; the right control there is scoped reachability, a reverse
+      proxy, TLS, and firewall rules, not a loopback restriction that would block the legitimate
+      traffic the system exists to receive. The setting isn't the lesson. Knowing which deployment
+      each setting actually belongs to is.</p>
+
+      <h3>A platform quietly protecting itself from itself: the loopback webhook block</h3>
+      <p>The commerce platform's own order webhook goes out through WordPress's built-in HTTP layer,
+      and that layer deliberately refuses to let a site call back into itself: a real SSRF
+      protection, blocking requests to localhost and loopback addresses by default, plus a separate
+      restriction to only a small set of common ports. On a real client's site, pointed at a public
+      automation URL, this protection is invisible and correct, doing exactly its job undetected. On
+      this local, single-machine build, it silently blocked every real order's webhook delivery, no
+      error surfaced anywhere a person would normally look, with nothing to distinguish intentional
+      platform security from a plain bug. Found in the commerce platform's own webhook delivery log,
+      not guessed at. The Inquiry form's own bridge plugin, built earlier, never hit this at all: it
+      happens to call a different WordPress HTTP function with no such restriction, a coincidence of
+      implementation choice that could just as easily have gone the other way and hidden this same
+      block behind Inquiry instead.</p>
+      <p>Fixed with two narrowly-scoped filters explicitly allowing only localhost and the
+      automation's specific port, and documented as a local-demo-only workaround from the moment it
+      was written, the same posture as the loopback-binding pattern above: a real client's automation
+      engine sits behind a real public or tunneled URL, so this exact block, and this exact fix,
+      would simply never come up there.</p>
+
+      <h3>Bounding what a polling system leaves behind: execution-log pruning</h3>
+      <p>Every stage that runs on a schedule rather than a webhook, checking Airtable every one to
+      five minutes across five separate pollers, produces a permanent execution record for every
+      single check, not just the ones that find something to do. Left unmanaged, that record grows
+      forever. An earlier assumption that the automation engine's own default retention already
+      covered this turned out to be exactly that: an assumption, never actually checked against the
+      live configuration. Confirmed directly against the running system instead of trusted:
+      retention had never been configured, and the real execution store had already grown to
+      <strong>7,564 executions and 154MB in just 8 days</strong>, with no cap in sight. Fixed by
+      explicitly configuring a 14-day pruning window rather than continuing to rely on an unverified
+      default, then verified live against the running container's actual environment variables, not
+      just the config file.</p>
+      <p>The lesson generalizes past this one setting: "the platform probably handles that by
+      default" is exactly the kind of claim this whole system is built to distrust until it's
+      actually confirmed, and this is a case where that claim was made once, sounded reasonable, and
+      was still wrong.</p>
+
+      <h3>Resending without regenerating</h3>
+      <p>Every certificate this system issues is captured once, at the moment it's created, and kept
+      permanently rather than treated as a one-time email attachment. Staff can resend that exact
+      file at any time by checking a single field on the student's record; a separate guard, built on
+      the same atomic-claim pattern used throughout this system, confirms the student was actually
+      certified before anything gets sent, so the resend path can't be triggered by mistake on
+      someone who never received a certificate in the first place.</p>
+    </div>
+  </section>
+
+  <!-- ============ 03 BUGS ============ -->
+  <section class="chapter" id="bugs">
+    <div class="chapter-head">
+      <span class="chapter-num">03</span>
+      <h2 class="chapter-title">Real bugs, found and fixed</h2>
+    </div>
+    <p class="chapter-dek">This is the material worth reading most closely. Every case below is a real defect that made it past at least one earlier check. The value is in how each one actually surfaced, not just the one-line fix.</p>
+
+    <div class="prose wide">
+      <p>A workflow reporting "success" and a workflow doing the <em>right</em> thing are different
+      claims. n8n's own execution status only proves the first. Every case in this section is a
+      moment where that gap mattered: a node ran clean, logged no error, and still produced the wrong
+      real-world outcome.</p>
+    </div>
+
+    <div class="prose wide">
+      <p>Rather than smoothing over a miss, every case below gets a full trace of exactly which
+      checks ran, why each one missed it, and what changed afterward, held to the same standard
+      throughout.</p>
+    </div>
+
+    <!-- Case: race condition -->
+    <div class="case">
+      <div class="case-head">
+        <span class="case-tag">Foundational, real duplicate created</span>
+        <h3>Two genuine webhooks, milliseconds apart, created a real duplicate customer record</h3>
+      </div>
+      <div class="case-body">
+        <div class="trail">
+          <span class="found">Found live, real duplicate data</span>
+          <span>Root-caused</span>
+          <span class="fixed">Fixed &amp; proven under real concurrency</span>
+        </div>
+        <h4>What happened</h4>
+        <p>A real test order triggered WooCommerce's order-placed and order-completed events close
+        enough together that two separate workflows each ran their own "look up this person, then
+        create or update" sequence at nearly the same instant. Both saw "not found." Both created a
+        row. The result wasn't a theoretical race, it was two actual rows in Airtable for one actual
+        customer.</p>
+        <h4>Root cause</h4>
+        <p>A two-step sequence, look up first, act second, is only safe if nothing else can act in
+        the gap between those two steps. Two workflows reacting to the same order from different
+        webhook events made that gap real, not hypothetical.</p>
+        <h4>Fix and verification</h4>
+        <p>Replaced the two-step sequence with the atomic-claim pattern described in Section 02: a
+        single upsert against a shared table, arbitrated by the destination database itself rather
+        than by n8n's own logic. Verified by deliberately re-firing both webhooks under genuine
+        simultaneous conditions, not sequential testing designed to avoid the race, and confirming
+        both executions resolved to the exact same record. This incident is the reason the
+        atomic-claim pattern exists at all; every other idempotency check in this system uses the
+        identical mechanism because this specific failure was seen firsthand once.</p>
+      </div>
+    </div>
+
+    <!-- Case: duplicate envelope -->
+    <div class="case">
+      <div class="case-head">
+        <span class="case-tag">Foundational</span>
+        <h3>A repeated status event silently re-sent a signing envelope every time</h3>
+      </div>
+      <div class="case-body">
+        <div class="trail">
+          <span class="found">Found live</span>
+          <span>Root-caused</span>
+          <span class="fixed">Fixed</span>
+        </div>
+        <h4>What happened</h4>
+        <p>Toggling an order's status during testing caused a brand-new DocuSign signing envelope to
+        go out on every single toggle, not just the first. A real customer hitting the same underlying
+        event twice, for any reason, would have received a fresh signing link each time.</p>
+        <h4>Root cause</h4>
+        <p>The no-regression guard protecting this step checked only the record's stage, and sending
+        an agreement doesn't move the stage in this system's design; the card sits at Registered both
+        before and after the agreement is sent. Stage alone genuinely could not distinguish "already
+        sent" from "not yet sent," because from stage's point of view those two states look identical.</p>
+        <h4>Fix and verification</h4>
+        <p>Added a dedicated timestamp field, set only once the envelope actually goes out, and
+        changed the guard to check that field instead of relying on stage alone. Confirmed the honest
+        way to state this one: the verification here doesn't carry the same forced-concurrency proof
+        as the case above, it was confirmed by re-triggering the same repeat-event scenario and
+        watching exactly one envelope go out instead of several. The broader lesson generalizes past
+        this one workflow: any guard built on "has the record reached the next stage" quietly breaks
+        the moment the guarded action doesn't itself move the stage, worth checking for on every
+        guard, not just this one.</p>
+      </div>
+    </div>
+
+    <!-- Case: Product/Tier mirror bug -->
+    <div class="case">
+      <div class="case-head">
+        <span class="case-tag">High severity, self-caused</span>
+        <h3>The instinct that fixed one bug quietly created its mirror image elsewhere</h3>
+      </div>
+      <div class="case-body">
+        <div class="trail">
+          <span class="found">Found during an audit</span>
+          <span>Root-caused</span>
+          <span class="fixed">Fixed &amp; verified against live config</span>
+        </div>
+        <h4>What happened</h4>
+        <p>An early real test order surfaced a genuine problem: a contact who had inquired about one
+        tier ended up purchasing a different one, and their board card kept showing the stale,
+        originally-inquired tier even after advancing to Registered. The fix at the time was sound:
+        make the order stage always pull Product/Tier from the real order's line item, since an order
+        is the authoritative record of what someone actually bought.</p>
+        <h4>Root cause</h4>
+        <p>A later audit found that the same reasoning, always reflect the freshest data, had been
+        applied unconditionally to the Inquiry workflow's own record-upsert step as well, without
+        checking whether an inquiry form is actually authoritative for that field. It isn't: an
+        inquiry reflects interest, not a purchase, and interest can legitimately differ from what
+        someone eventually buys. But the Inquiry workflow was overwriting Product/Tier on every single
+        inquiry submission, including from contacts already well past Inquiry, already Registered,
+        already signed, even already certified.</p>
+        <h4>Why this one mattered more than a display bug</h4>
+        <p>Product/Tier feeds directly into the CE certificate's hours calculation, 7 hours for Online
+        Training versus 14 for the in-person tier. A stray follow-up question from an already-paying,
+        already-certified customer could silently overwrite their purchased tier on the board. That's
+        a real path to generating a certificate with the wrong CE hours for a paying customer, not a
+        cosmetic glitch.</p>
+        <h4>Fix and verification</h4>
+        <p>Scoped the Inquiry workflow's upsert to only ever write Customer Name, Email, Phone, and
+        Message on every inquiry. Product/Tier was moved to the one branch that runs exclusively for
+        genuinely brand-new contacts. Confirmed directly against the live workflow configuration,
+        rather than the original design note, since the relevant logic had physically relocated during
+        an earlier restructure and the note no longer matched where the code actually lived.</p>
+        <p>Worth stating plainly, since it's the clearest example of this in the whole system: this
+        bug wasn't carelessness, it was a correct fix generalized one step too far. "Always trust the
+        newest data" has to be scoped to which source is actually authoritative for a given field, an
+        order is authoritative for what was purchased, an inquiry form is not, and the same instinct
+        that was right in one workflow was a real bug in another.</p>
+      </div>
+    </div>
+
+    <!-- Case: DNS -->
+    <div class="case">
+      <div class="case-head">
+        <span class="case-tag">Coverage gap</span>
+        <h3>A transient DNS blip exposed a real, unprotected coverage gap</h3>
+      </div>
+      <div class="case-body">
+        <div class="trail">
+          <span class="found">Found live</span>
+          <span>Root-caused</span>
+          <span>Audited system-wide</span>
+          <span class="fixed">Fixed &amp; proven</span>
+        </div>
+        <h4>What happened</h4>
+        <p>A routine test run failed with a DNS resolution error on a search node, then succeeded
+        cleanly on the next poll a minute later: self-healing, but only by accident.</p>
+        <h4>Root cause</h4>
+        <p>An earlier reliability pass had added automatic retry to every write that follows a won
+        idempotency claim, the highest-value place for it, since a stuck claim silently blocks
+        forward progress forever. But that scope, defined precisely as "downstream of a claim,"
+        didn't include the read-only search nodes that run <em>before</em> a claim is even attempted.
+        Auditing every workflow directly turned up the identical gap on four more search nodes across
+        three other workflows.</p>
+        <h4>Fix and verification</h4>
+        <p>Retry added to all five affected nodes, one workflow at a time, each proven with a real
+        trigger before being published live, not just configured and assumed. The practical impact
+        of the original gap was genuinely minor (a self-healing read, worst case a few minutes'
+        delay), but the audit habit it forced, checking every node against the same failure class and
+        not just the one that happened to fail visibly, is what actually mattered.</p>
+      </div>
+    </div>
+
+    <!-- Case: blank fields -->
+    <div class="case">
+      <div class="case-head">
+        <span class="case-tag">Silent content bug: missed 3 times</span>
+        <h3>A real customer email arrived with every data field blank</h3>
+      </div>
+      <div class="case-body">
+        <div class="trail">
+          <span class="found">Found by reading a real email</span>
+          <span>Root-caused</span>
+          <span>Fixed</span>
+          <span class="fixed">Re-verified on content, not status</span>
+        </div>
+        <h4>What happened</h4>
+        <p>An internal "agreement signed" notification went out with the template intact but every
+        variable empty: Customer, Email, Order ID, Product/Tier, all blank. The node had reported
+        success.</p>
+        <h4>Root cause</h4>
+        <p>The notification template read a field directly off its immediate upstream node's output.
+        That upstream node was a direct API write to Airtable, a documented workaround for a separate
+        platform bug in the vendor's native node (below), and a batch-style write returns its data
+        nested one level deeper than a single-record read does. Reading the shallow shape against the
+        nested response resolved to nothing, silently, on every single run.</p>
+        <h4>The part that actually matters</h4>
+        <p>This exact class of bug had already been found and fixed on a <em>different</em> workflow
+        weeks earlier. That fix never propagated to this workflow's equivalent nodes, and three
+        separate verification passes (an initial build test, a later retroactive function-check, and
+        this session's own retry-fix testing) all made the identical mistake: each confirmed the node
+        executed successfully and treated that as proof it worked, without opening the message it
+        actually produced.</p>
+        <h4>Fix and verification</h4>
+        <p>Template corrected to read the correct nested path, matching the already-proven pattern
+        exactly. Re-verified with a fresh, real trigger, this time by actually reading the resulting
+        email and Slack message, not just confirming they arrived. A system-wide audit followed
+        immediately: every notification node in every workflow traced back to its real upstream data
+        shape, checked against this exact failure pattern. Clean everywhere else.</p>
+      </div>
+    </div>
+
+    <!-- Case: native node 422 -->
+    <div class="case">
+      <div class="case-head">
+        <span class="case-tag">Root-caused by elimination</span>
+        <h3>A native platform node failed every real run, and the data was never the cause</h3>
+      </div>
+      <div class="case-body">
+        <div class="trail">
+          <span class="found">Found by a real failed write</span>
+          <span>Three fixes ruled out in turn</span>
+          <span>Confirmed via curl, outside the platform</span>
+          <span class="fixed">Fixed with an established pattern</span>
+        </div>
+        <h4>What happened</h4>
+        <p>The Airtable node stamping a signed agreement's real completion data failed on every
+        single real run with <code>422 INVALID_RECORDS</code>. Nothing about the specific record or
+        table configuration explained it.</p>
+        <h4>Root cause</h4>
+        <p>Three plausible fixes were tried and ruled out in turn, not guessed at: a genuine
+        trailing-newline character in the record-ID expression, enabling the node's Typecast option,
+        and deleting and fully recreating the node from scratch. None changed the result. The record
+        was confirmed innocent by sending the identical payload directly to Airtable's own REST API
+        with <code>curl</code>, bypassing the automation platform entirely: it succeeded immediately.
+        That isolated the bug to the platform's own native node itself, not the data, not the table,
+        not the configuration.</p>
+        <h4>Fix and verification</h4>
+        <p>Replaced the native node with an HTTP Request node making the identical call directly, the
+        same pattern already established elsewhere in this system for this exact class of
+        platform-node unreliability. Two follow-on issues surfaced in the same pass: a date value the
+        native node had been silently reformatting was now rejected by Airtable's date-only field
+        until explicitly formatted, and a bearer token moved out of a node field into a proper stored
+        credential. Verified against a real trigger, not assumed fixed once the write stopped
+        erroring. This same direct-API-write pattern is what produced the batch-response-shape bug
+        described above, a real tradeoff of an otherwise proven fix, not a free workaround.</p>
+      </div>
+    </div>
+
+    <!-- Case: date anomaly -->
+    <div class="case">
+      <div class="case-head">
+        <span class="case-tag">Silent content bug</span>
+        <h3>The alert built to explain a data problem couldn't describe its own most common case</h3>
+      </div>
+      <div class="case-body">
+        <div class="trail">
+          <span class="found">Found during a content audit</span>
+          <span>Root-caused</span>
+          <span>Fixed</span>
+          <span class="fixed">Re-verified, real trigger</span>
+        </div>
+        <h4>What happened</h4>
+        <p>Found while pulling real execution data for the audit above, not while hunting for this
+        specific bug. The date-consistency guard's alert (described in Section 02) is meant to tell
+        staff exactly what's wrong with a record so they can fix it. When the most likely real-world
+        trigger fired, a signed-date field that's simply blank, the alert rendered the literal text
+        "Invalid DateTime" and an empty reason. The one alert built specifically to be informative was,
+        in its single most common case, informative about nothing.</p>
+        <h4>Root cause</h4>
+        <p>The date-formatting logic assumed the field would always contain a parseable date and never
+        checked for blank. The reason-message logic had exactly two branches, "too early" and "too
+        late," with no branch at all for "missing."</p>
+        <h4>Fix and verification</h4>
+        <p>Added an explicit blank check: the alert now reads "not set" in plain English and states
+        the reason as "Agreement Signed Date is not set." Re-triggering the exact scenario required
+        understanding that this alert's own duplicate-suppression key is scoped to the specific date
+        value involved. The first retry attempt was correctly blocked as a duplicate of the original
+        broken alert, requiring a genuinely new date value to produce a fresh one. The second attempt
+        confirmed the fix, independently read and confirmed against the real Slack and email output.</p>
+      </div>
+    </div>
+
+    <!-- Case: slack attribution -->
+    <div class="case">
+      <div class="case-head">
+        <span class="case-tag">System-wide, caught by direct question</span>
+        <h3>A platform default quietly survived a fix that looked complete</h3>
+      </div>
+      <div class="case-body">
+        <div class="trail">
+          <span class="found">Caught by reading a real message</span>
+          <span>Root-caused in vendor source</span>
+          <span>Confirmed system-wide</span>
+          <span class="fixed">Fixed on all instances</span>
+        </div>
+        <h4>What happened</h4>
+        <p>An earlier pass had turned off Gmail's default attribution footer, "This email was sent
+        automatically with n8n," on every outbound email. Weeks later, a real Slack notification still
+        carried its own version, "Automated with this n8n workflow," complete with a live link back to
+        the workflow itself. The two looked like the same feature, already handled by the same earlier
+        fix; they weren't.</p>
+        <h4>Root cause</h4>
+        <p>Confirmed directly in the platform's own installed source rather than guessed: Gmail and
+        Slack attribution are two entirely separate, differently-named settings under the hood,
+        <code>appendAttribution</code> for Gmail versus <code>includeLinkToWorkflow</code> for Slack.
+        Slack's defaults to <em>on</em> whenever it isn't explicitly set. Turning off Gmail's setting
+        was never going to touch Slack's. The original fix simply didn't know the second setting
+        existed.</p>
+        <h4>Fix and verification</h4>
+        <p>Every Slack-sending node across every workflow was checked directly against its saved
+        configuration, confirmed the setting was unset (and therefore defaulting on) on all of them,
+        not assumed from the one instance that surfaced it. Fixed uniformly, proven live on one
+        workflow with a real trigger, the remaining instances verified by direct configuration diff
+        rather than each independently re-triggered: a deliberate, explicit tradeoff for a change
+        that is one generic platform toggle with identical behavior everywhere, not workflow-specific
+        logic, rather than a shortcut taken unilaterally.</p>
+      </div>
+    </div>
+
+    <!-- Case: access-granted gate bypassed by commerce platform default -->
+    <div class="case">
+      <div class="case-head">
+        <span class="case-tag">Access-control gap, caught by a documentation question</span>
+        <h3>The signature gate had a payment-shaped hole in it</h3>
+      </div>
+      <div class="case-body">
+        <div class="trail">
+          <span class="found">Caught while writing client-facing documentation</span>
+          <span>Root-caused in platform config</span>
+          <span>Confirmed on a real order</span>
+          <span class="fixed">Fixed and re-verified end-to-end</span>
+        </div>
+        <h4>What happened</h4>
+        <p>Course access in this system is deliberately gated behind a signed agreement, not behind
+        payment. For a hands-on certification course like this one, releasing access to the course
+        material before a signed waiver is on file is a genuine legal-exposure risk, not a
+        nice-to-have. That rule lived correctly in the design documentation and in the board's own
+        stage sequence: the "Access granted" stage genuinely only fires once a real signature has
+        come back. But for the Online Training tier specifically, the commerce platform underneath
+        the board had its own, entirely separate delivery mechanism for downloadable products, and it
+        was still switched on. The moment an order was paid, the platform handed the customer a valid
+        download link directly, right on the checkout confirmation page, before an agreement had even
+        been sent to them, let alone signed. The board was telling the truth about what the
+        automation had done. It just had no visibility into, or control over, what the customer could
+        already do.</p>
+        <h4>Root cause</h4>
+        <p>Two settings, confirmed directly rather than assumed: the product itself was flagged as a
+        downloadable file, and the platform's own global "grant access after payment" setting was
+        switched on. Both predate the automation layer entirely and sit in the commerce platform's own
+        configuration, not in anything the signature-tracking workflow reads or writes. The gate the
+        design called for existed only on the board; the actual file delivery was never wired through
+        it at all.</p>
+        <h4>Fix and verification</h4>
+        <p>The commerce platform's native downloadable-file delivery was switched off for this tier
+        entirely, closing the leak at its source rather than trying to out-race the platform's own
+        timing. A new step was added to the signature-tracking workflow so the course material is
+        emailed directly, and only once the signature is genuinely confirmed, the same point the board
+        itself already advances to "Access granted." Before testing live, the change was audited on
+        its own terms: confirmed it inherits the workflow's existing duplicate-send protection, runs
+        independently of the team's own internal alert so one failing can't block the other, and
+        checked for and cleared any leftover access grants already issued under the old behavior,
+        since closing a leak going forward isn't the same claim as confirming nothing already got
+        through in the meantime. Verified on a real order end-to-end: no download appeared anywhere
+        in the checkout
+        flow, and after a real signature came back, the course material genuinely arrived by email,
+        confirmed directly rather than assumed from a clean execution status.</p>
+      </div>
+    </div>
+
+    <div class="prose wide">
+      <p><strong>The pattern across all nine cases:</strong> none of them were caught by a status
+      check, a structural review, or a "the node ran without erroring" pass. Every one was caught by
+      checking the actual real-world result, real records, real messages, genuine concurrent load,
+      rather than trusting that a clean execution status meant the outcome was correct. That's not a
+      coincidence. It's the specific limitation Section 04 addresses directly.</p>
+    </div>
+  </section>
+
+  <!-- ============ 04 DISCIPLINE ============ -->
+  <section class="chapter" id="discipline">
+    <div class="chapter-head">
+      <span class="chapter-num">04</span>
+      <h2 class="chapter-title">Verification discipline</h2>
+    </div>
+    <p class="chapter-dek">A "workflow tested" claim is only as strong as what triggered it and what was actually inspected afterward. Three specific habits, and what a real audit can honestly claim to prove.</p>
+
+    <div class="prose wide">
+      <h3>An upstream "success" is not the outcome you need</h3>
+      <p>A signing platform reporting an envelope as "sent" via its own API is not the same claim as
+      "the recipient's inbox actually received it," a real, observed gap in a sandbox environment
+      specifically. The fix wasn't to trust the platform's own notification more; it was to stop
+      depending on it. A fresh, direct signing link is generated on demand and delivered through a
+      channel already independently verified to work, rather than relying on the third party's native
+      delivery. The general principle: when an upstream system's own success signal can't be fully
+      trusted, own the delivery of the thing that actually matters.</p>
+
+      <h3>"Not found" is a normal outcome, not an error</h3>
+      <p>By default, the automation engine treats a search returning zero results as a failure worth
+      halting the entire run for, which breaks any lookup where "this person is new" is the ordinary,
+      common case, not an edge case. Every lookup node in this system is explicitly configured to
+      output a clean, structured "nothing found" result instead of halting, with a downstream check
+      that treats presence of a real record ID as the actual signal. The same idea recurs throughout
+      this system in different forms: <em>not every "nothing happened" outcome is a failure.</em> The
+      system needs an explicit way to represent "checked, found nothing, that's fine," separate from
+      "something actually broke."</p>
+
+      <h3>A field can silently store the wrong thing while looking fine</h3>
+      <p>A numeric-type field given a non-numeric value doesn't error in this system's database layer;
+      it silently stores zero, with no visible signal in either the database's own interface or the
+      automation canvas. Caught only by checking the raw stored value directly via API, not through
+      any UI. No coded guard was built for it, deliberately: the real production source for that field
+      is always genuinely numeric, so the exposure only exists during manual test-data entry. The
+      right response to a risk that only exists in testing is a testing habit, not a workflow-level
+      guard against a threat that has no real path to production.</p>
+
+      <h3>Proving a fix, not just configuring one</h3>
+      <p>Every real trigger through the retry-protected nodes in Section 02 had, up to this point,
+      happened to succeed on the first attempt: genuine proof the retry configuration doesn't break
+      anything, but zero direct proof retry actually <em>fires</em> under a real failure. Closing that
+      gap meant deliberately breaking something on purpose: a genuinely invalid credential was swapped
+      onto a live, already-published node, and the real scheduled trigger was left to hit the real
+      API with it, no synthetic payload, no mocked response.</p>
+
+      <div class="evidence">
+        <div class="evidence-label">Real result: forced failure, live schedule trigger</div>
+        <pre>Two consecutive real failures: genuine 401 from the live API, not simulated
+Each failed run: 5-7 seconds
+  (a single normal attempt completes in well under 1 second everywhere else
+   in this system; the multi-second duration is exactly what 3 attempts
+   spaced 2 seconds apart would produce)
+Node's own error snapshot: retryOnFail + waitBetweenTries confirmed live
+  during the failure, not inferred from timing alone
+
+Credential restored -> next real scheduled run: ~2.2 seconds, back to normal</pre>
+      </div>
+
+      <p>"The retry setting is present and correctly configured" and "the retry mechanism actually
+      retries when something really fails" are different claims requiring different evidence. This is
+      what supplies the second one.</p>
+
+      <h3>What a targeted audit actually proves, stated precisely</h3>
+      <p>After the blank-fields bug in Section 03, every notification node in every workflow was
+      traced back to its real upstream data shape and checked against that exact failure pattern,
+      system-wide. It came back clean everywhere else. That is a true, meaningful, and fully verified
+      claim, but it is a narrower claim than "the system has no more bugs," and the difference
+      matters. An audit scoped to one specific, well-understood failure pattern cannot speak to a
+      failure pattern nobody has hypothesized yet. Overstating what a targeted audit proves is its own
+      quiet form of the same mistake this whole section is about: mistaking "the check passed" for
+      "the thing is actually fine."</p>
+
+      <div class="stats">
+        <div class="stat"><div class="n">9</div><div class="d">real bug cases in Section 03 alone, found by checking actual results, not status</div></div>
+        <div class="stat"><div class="n">2</div><div class="d">independent system-wide audits run after the first one</div></div>
+        <div class="stat"><div class="n">1</div><div class="d">deliberate live failure-injection test, forced on purpose</div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ 05 UNFIXED ============ -->
+  <section class="chapter" id="unfixed">
+    <div class="chapter-head">
+      <span class="chapter-num">05</span>
+      <h2 class="chapter-title">Left unfixed, on purpose</h2>
+    </div>
+    <p class="chapter-dek">Fixing every finding reflexively isn't more thorough. It's a different kind of carelessness, one that can introduce a new problem while chasing a theoretical one. Triage is itself the skill.</p>
+
+    <div class="prose wide">
+      <p>Seven real findings are documented here rather than fixed or hidden. Four are deliberate
+      triage calls: real, low-priority tradeoffs weighed and consciously left as-is. Three are open
+      gaps: real limitations of this system at its current scale, honestly named along with exactly
+      what would need to change before they'd matter. The point of naming all seven is the same either
+      way: a real security and reliability review always turns up more than gets fixed on the first
+      pass, and being precise about which findings were triaged versus which are still genuinely open
+      is more trustworthy than a report that implies everything got addressed.</p>
+    </div>
+
+    <div class="finding">
+      <div class="finding-head">
+        <h4>Plain comparison instead of constant-time, on one check</h4>
+        <span class="risk-chip">Theoretical, low practical risk</span>
+      </div>
+      <p>The signing-link verification (Section 02) uses a constant-time comparison to close a
+      timing side-channel: a naive equality check stops comparing at the first mismatched character,
+      so a wrong guess that happens to share more characters with the real secret takes a fraction
+      of a second longer to reject than one that's wrong from the very first character. Comparing a
+      guess of <code>XBCDE</code> against a real secret of <code>ABCDE</code> fails instantly at
+      position 1; comparing <code>ABCDX</code> fails only at position 5, after four correct
+      characters in a row. Measured precisely enough, across enough attempts, that timing difference
+      can let an attacker recover a secret one character at a time instead of guessing the whole
+      string at once, which is exactly what a constant-time comparison prevents by always checking
+      every character regardless of an early mismatch. The separate webhook-signature check does not
+      use this protection; it's a plain equality comparison inside a visual condition node.</p>
+      <p class="why"><strong>Why:</strong> the signing-link check already required custom code for its
+      HMAC math, so constant-time comparison was effectively free to add there. Rebuilding the webhook
+      check as custom code <em>solely</em> to add this one protection would trade a simple, readable
+      visual check for real added complexity, against a risk that requires an attacker with
+      unrealistically precise timing measurement against a low-value target. Documented and left
+      as a known, explainable inconsistency rather than silently different for no stated reason.</p>
+    </div>
+
+    <div class="finding">
+      <div class="finding-head">
+        <h4>Form field mapping by type, not by ID</h4>
+        <span class="risk-chip">Not a live bug: a tripwire</span>
+      </div>
+      <p>The inquiry form's field-to-data mapping matches by field <em>type</em> (name, email, text,
+      select) rather than the form builder's internal numeric field ID. The form builder in use is
+      known to silently reassign those numeric IDs whenever the form is edited, with no warning: an
+      ID-based mapping ("grab field #14 for the email") would misroute data the next time someone
+      makes a routine edit, with no visible error. Type-based mapping ("grab whatever field is the
+      Email type") survives that renumbering, since it never depends on the number at all.</p>
+      <p class="why"><strong>Why:</strong> type-based mapping trades that failure mode for a narrower
+      one. It only works cleanly because the form currently has
+      exactly one field of each type. If a second field of the same type were ever added, for
+      instance a new "How did you hear about us?" text field alongside the existing Message text
+      field, the mapping would no longer have one obvious answer for "the text field" and could
+      silently mismatch the two, again with no visible error. The fix that would close <em>that</em>
+      gap (going back to ID-based mapping) reopens the original one it was built to avoid, so this is
+      left as a documented tripwire for if the form is ever restructured, not treated as something to
+      preemptively rebuild against a risk that doesn't exist in the form as it stands today.</p>
+    </div>
+
+    <div class="finding">
+      <div class="finding-head">
+        <h4>No reconciliation if the automation process dies mid-execution</h4>
+        <span class="risk-chip">Real gap at production scale</span>
+      </div>
+      <p>Every guard in this system assumes the automation engine's own process stays alive between
+      the moment a claim is won and the moment the guarded action (sending an envelope, stamping a
+      record, issuing a certificate) actually finishes. Concretely: the claim gets marked "handled"
+      in one step, then the real action, say, emailing a certificate, happens in a later step. If the
+      whole process were killed in the gap between those two steps, for instance by a host's
+      out-of-memory killer reclaiming resources on a shared server, the "handled" mark is already
+      permanently saved, but the certificate never actually went out. The process restarts normally
+      afterward and picks up new events fine; the one interrupted mid-flight is left silently marked
+      done forever, with nothing revisiting it and no error thrown anywhere.</p>
+      <p class="why"><strong>Why:</strong> this has never actually happened on this system, and
+      forcing it deliberately (killing the process mid-execution, repeatedly, to test recovery) is a
+      meaningfully more invasive test than the credential-based failure injection already run in
+      Section 04. At this system's real scale and traffic, the odds of a process crash landing inside
+      that specific narrow window are low enough that building a reconciliation mechanism now would be
+      solving a problem that has never once occurred, at the cost of real design and testing effort.
+      Named here rather than left silent, because a real paying client running meaningful volume
+      through a system like this would need two real answers before launch: an alert the moment the
+      process itself dies or restarts, since that's the harder-won information, nobody watching for it
+      means it's discovered from a customer complaint instead of in real time, and a periodic job that
+      separately reconciles any claim older than a threshold with no completed action. That alert
+      also needs its own routing and noise handling to actually be useful: sent to whoever provides
+      technical support, not the client's own staff-facing channels, since "the process restarted"
+      isn't something ordinary staff can act on the way "a new inquiry came in" is, and triggered on
+      genuine state changes rather than every individual restart, so a process dying repeatedly in a
+      short window produces one clear escalation instead of a flood of identical pings nobody reads.</p>
+      <p>That routing and noise handling now exists, and was proven under a real outage, but for
+      execution failures only (Section 02): a dedicated alerts channel separate from the staff-facing
+      ones, and an hourly suppression key so a repeatedly failing workflow produces one message rather
+      than a stream. Neither of the two answers above is closed by it. An error handler that lives
+      inside the automation engine cannot fire when the engine itself is what died, so catching a
+      process death still requires a watcher outside the engine, and the reconciliation sweep remains
+      unbuilt.</p>
+      <p>This exact category of risk was consciously accepted again, not overlooked, when the
+      access-granted fix in Section 03 was built: if the stored course file ever became unreachable
+      mid-delivery, that new step would fail after its retries with the same silent, unwatched outcome
+      described above. Building one-off recovery just for that single step, while every other step in
+      this system carries the identical exposure, would make that one path inconsistently safer rather
+      than actually safer, so it was deliberately left to the same, single future fix named here.</p>
+    </div>
+
+    <div class="finding">
+      <div class="finding-head">
+        <h4>Rate limits and OAuth refresh under real burst load</h4>
+        <span class="risk-chip">Untested at scale</span>
+      </div>
+      <p>None of Airtable's, DocuSign's, or Google's rate-limit (429) responses, or the token-refresh
+      behavior of their OAuth-based integrations, have been tested under genuine concurrent burst
+      load. Every real test this system has seen involved one or two overlapping people, never dozens
+      hitting the same integration in the same second.</p>
+      <p class="why"><strong>Why:</strong> building and load-testing for burst traffic this system has
+      never actually experienced, and has no near-term reason to, would be solving for a scale that
+      doesn't exist yet rather than the scale that does. Documented as an open question rather than
+      assumed fine, since a real client launch (a course cohort opening enrollment all at once, for
+      instance) is exactly the kind of event that would create genuine burst load for the first time,
+      and that's the point at which this would need real answers: honoring a 429's <code>Retry-After</code>
+      header directly instead of the current flat retry interval, and confirming each OAuth
+      integration refreshes cleanly under concurrent use rather than serializing or failing.</p>
+    </div>
+
+    <div class="finding">
+      <div class="finding-head">
+        <h4>Google's test-mode OAuth tokens expire every 7 days</h4>
+        <span class="risk-chip">Real incident, platform constraint</span>
+      </div>
+      <p>The Gmail credential this system uses genuinely stopped working mid-session, mid-test, with a
+      "needs to be reconnected" error, and the same thing happened again days later to the Google
+      Drive and Slides credentials as well. Root cause, confirmed directly in Google Cloud Console
+      rather than guessed: the backing OAuth app is in Google's <em>Testing</em> publishing status,
+      and Google documents that refresh tokens issued to test users under that status expire after 7
+      days, requiring a manual reconnect. Not a bug in anything built here, a real platform limitation
+      of the environment this demo runs in, and one that isn't specific to any single Google
+      integration: every credential built against this OAuth app is on the same 7-day clock.</p>
+      <p class="why"><strong>Why:</strong> the actual fix isn't "remember to reconnect every week."
+      For a real client, it's getting the OAuth app through Google's formal verification process (a
+      real, non-trivial step required for any app requesting Gmail, Drive, or Slides scopes in
+      production) or switching to a service-account-based auth method that isn't subject to the
+      test-user limit at all. Neither was warranted for a portfolio demo; both are the correct next
+      step the moment this pattern gets reused for an actual paying client. Left here specifically
+      because a credential that quietly stops working on a schedule is exactly the kind of gap easy
+      to miss until it's already broken something a customer was waiting on, and here it happened
+      more than once, across more than one credential.</p>
+    </div>
+
+    <div class="finding">
+      <div class="finding-head">
+        <h4>Customer order emails never leave the sandbox</h4>
+        <span class="risk-chip">Platform constraint, demo only</span>
+      </div>
+      <p>WordPress sends its own mail through Resend, separate from the Gmail account n8n uses for
+      everything the automation sends itself. That WordPress path has one job here: WooCommerce's
+      order confirmation to the buyer. It has never been delivered, not once, across every order this
+      demo has taken. The separate new-order alert WooCommerce sends the shop admin has delivered
+      every time, thirty for thirty. Root cause, confirmed against Resend's own API rather than
+      inferred: the site sends from <code>onboarding@resend.dev</code>, Resend's shared unverified
+      sender, which delivers only to the exact address registered on the account.</p>
+      <p class="why"><strong>Why:</strong> the fix is verifying a sending domain and moving the from
+      address onto it, which needs a domain this demo does not have. Nothing in the automation depends
+      on it, since n8n deliberately never sends that message, because WooCommerce already does. It is
+      worth stating plainly because the split is easy to miss: mail keeps arriving throughout testing,
+      from n8n and from the admin alert, so the one message that never arrives is the one nobody is
+      watching for.</p>
+    </div>
+
+    <div class="finding">
+      <div class="finding-head">
+        <h4>No reminder tells staff someone is ready to be marked attended</h4>
+        <span class="risk-chip">Deliberate omission, not a limitation</span>
+      </div>
+      <p>Marking a person "Attended" and issuing their certificate is, by design, left as a genuine
+      human judgment call: nobody automates deciding that a real student actually completed a real
+      requirement, and that part of the design is correct as built. What's missing is anything that
+      tells staff it's time to make that call. A notification <em>is</em> sent at the moment someone
+      reaches "Access granted," but it is the signature alert, subject line "Agreement signed,"
+      announcing what just happened rather than prompting what needs to happen next. Nothing later says
+      "this person has had access for a while and still isn't marked attended." Staff are expected to
+      notice that on their own, by checking the column.</p>
+      <p class="why"><strong>Why:</strong> this is a scope choice, not a technical limitation, and
+      worth being explicit about which it is. A reminder, for instance, alerting the team if a card
+      sits at "Access granted" past some threshold with nothing marked, would sit directly on top of
+      the exact same notify-branch pattern already used at every other stage in this system. Nothing
+      about the platform or the architecture stands in the way of adding it. It simply wasn't needed
+      to prove the point this demo exists to prove, and was left out on purpose rather than half-built
+      or forgotten.</p>
+    </div>
+
+    <div class="finding">
+      <div class="finding-head">
+        <h4>In-person tiers get no automated event-details message</h4>
+        <span class="risk-chip">Deliberate omission, not a limitation</span>
+      </div>
+      <p>At Access granted, the Online Training tier gets an automated Welcome Packet email with a PDF
+      attachment pulled from Google Drive: log-in details, what to expect, everything a remote student
+      needs to start. The in-person tiers get nothing at that stage. No email fires, no PDF, no
+      automated trigger of any kind. Staff are left to manually reach out with the details an in-person
+      student actually needs: where to show up, what time, and who to report to.</p>
+      <p class="why"><strong>Why:</strong> this is a scope choice, not a technical limitation. The
+      branch that sends the Welcome Packet was built to close a real security bug specific to the
+      Online Training tier (Section 03); the equivalent in-person branch was never built because
+      nothing forced it, not because it's hard. The automation itself would mirror the exact same
+      pattern already used for the Welcome Packet: the same gate, a false branch instead of a true
+      one, sending an event-details email instead of a Drive PDF. The one genuine blocker is data, not
+      logic: today's board has nowhere to hold per-cohort event details, only a generic label field, so
+      before this gets built the real question to answer is whether in-person training happens at one
+      fixed location or varies by cohort and city, since that decides the schema. Sequenced
+      deliberately last on the roadmap rather than built now, since it doesn't change whether the demo
+      proves what it's meant to prove.</p>
+    </div>
+  </section>
+
+  <!-- ============ 06 CLOSE ============ -->
+  <section class="chapter" id="close">
+    <div class="chapter-head">
+      <span class="chapter-num">06</span>
+      <h2 class="chapter-title">Closing</h2>
+    </div>
+
+    <div class="closing">
+      <h3>The standard this system is held to</h3>
+      <p style="margin:0 0 14px; font-size:15.5px; color:var(--ink-soft);">
+        Security and reliability aren't a pass added at the end here. They're default behavior:
+        secrets kept out of anywhere a browser or database dump could expose them, every public entry
+        point authenticated before it's trusted, and, once a real race condition actually produced a
+        duplicate record, every concurrent-write path rebuilt to be safe by construction rather than
+        by hoping the timing works out. That standard held for everything built after that point.
+      </p>
+      <p style="margin:0 0 14px; font-size:15.5px; color:var(--ink-soft);">
+        The more useful claim is the second half: nine real bugs made it past earlier checks anyway,
+        every one of them invisible to "did the node report success," and every one of them was still
+        found by checking the actual result instead of trusting a clean status, and by deliberately
+        re-checking every place a bug class already proven once could recur. That's the actual
+        discipline on display here, not a system that never broke.
+      </p>
+      <p style="margin:0 0 14px; font-size:15.5px; color:var(--ink-soft);">
+        For the plain-language version of how this system actually runs day to day, stage by
+        stage, see the companion <a href="HANDOFF-lifecycle-explained.html" target="_blank"
+        rel="noopener noreferrer">client handoff walkthrough</a>.
+      </p>
+      <div class="cta">
+        <span>Tony Ngo, AI Automation Specialist</span>
+        <span><a href="https://avyxen.com/" target="_blank" rel="noopener noreferrer">Avyxen LLC</a></span>
+      </div>
+    </div>
+  </section>
+
+  <footer class="colophon">
+    <span>PST Academy is a portfolio demonstration system, not affiliated with any real business.</span>
+  </footer>
+
+</div>
