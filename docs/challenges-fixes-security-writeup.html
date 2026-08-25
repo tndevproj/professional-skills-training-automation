@@ -1459,7 +1459,7 @@ Credential restored -> next real scheduled run: ~2.2 seconds, back to normal</pr
 
     <div class="finding">
       <div class="finding-head">
-        <h4>Plain comparison instead of constant-time, on one check</h4>
+        <h4>Plain comparison instead of constant-time, on the webhook checks</h4>
         <span class="risk-chip">Theoretical, low practical risk</span>
       </div>
       <p>The signing-link verification (Section 02) uses a constant-time comparison to close a
@@ -1472,11 +1472,14 @@ Credential restored -> next real scheduled run: ~2.2 seconds, back to normal</pr
       can let an attacker recover a secret one character at a time instead of guessing the whole
       string at once, which is exactly what a constant-time comparison prevents by always checking
       every character regardless of an early mismatch. The separate webhook-signature check does not
-      use this protection; it's a plain equality comparison inside a visual condition node.</p>
+      use this protection. It appears in two workflows, both order flows, and in each one it is a
+      plain equality comparison inside a visual condition node.</p>
       <p class="why"><strong>Why:</strong> the signing-link check already required custom code for its
-      HMAC math, so constant-time comparison was effectively free to add there. Rebuilding the webhook
-      check as custom code <em>solely</em> to add this one protection would trade a simple, readable
-      visual check for real added complexity, against a risk that requires an attacker with
+      HMAC math, so constant-time comparison was effectively free to add there. Rebuilding those checks
+      as custom code <em>solely</em> to add this one protection would mean duplicating the comparison
+      in two places and keeping them in sync, since n8n code nodes cannot import each other, trading
+      two simple, readable visual checks for real added complexity, against a risk that requires an
+      attacker with
       unrealistically precise timing measurement against a low-value target. Documented and left
       as a known, explainable inconsistency rather than silently different for no stated reason.</p>
     </div>
