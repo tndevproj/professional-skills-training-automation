@@ -627,11 +627,12 @@
     <div class="prose wide">
       <p>PST Academy sells a certification course in three tiers. Behind the storefront sits a lifecycle
       board, one row per prospective student, one column per stage: <em>Inquiry &rarr; Contacted &rarr;
-      Registered &rarr; Agreement Signed &rarr; Access Granted &rarr; Attended/CE Issued.</em> Eight n8n workflows run the
+      Registered &rarr; Agreement Signed &rarr; Access Granted &rarr; Attended/CE Issued.</em> Nine n8n workflows run the
       system: six move a row forward as real events happen (a form submission, a completed order, a
-      signed agreement, a logged phone call, a certificate of attendance), and two are supporting
-      paths that deliberately advance no one: a signing-link redirect that re-issues expired links, and a
-      staff-triggered certificate resend. Nothing moves a card by hand except the parts
+      signed agreement, a logged phone call, a certificate of attendance), two are supporting
+      paths that deliberately advance no one (a signing-link redirect that re-issues expired links, and a
+      staff-triggered certificate resend), and one watches the other eight and reports any failure.
+      Nothing moves a card by hand except the parts
       that genuinely require human judgment: following up, correcting a mistake, deciding a refund.</p>
 
       <p>Built on WordPress and WooCommerce for this demo, but that's the swappable part, not the
