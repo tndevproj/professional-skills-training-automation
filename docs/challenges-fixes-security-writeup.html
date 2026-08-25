@@ -128,13 +128,6 @@
     align-items: center;
     gap: 10px;
   }
-  .eyebrow::before {
-    content: "";
-    display: inline-block;
-    width: 22px;
-    height: 3px;
-    background: var(--accent);
-  }
   h1.title {
     font-family: var(--brand);
     font-weight: 800;
@@ -234,14 +227,6 @@
     font-size: 13px;
     color: var(--accent);
     padding-top: 6px;
-  }
-  .chapter-num::before {
-    content: "";
-    display: block;
-    width: 28px;
-    height: 3px;
-    background: var(--accent);
-    margin-bottom: 10px;
   }
   h2.chapter-title {
     font-family: var(--brand);
@@ -590,7 +575,7 @@
 <div class="page">
 
   <header class="masthead">
-    <p class="eyebrow">Technical write-up &middot; Avyxen LLC</p>
+    <p class="eyebrow">Technical writeup &middot; Avyxen LLC</p>
     <h1 class="title">Building a system that <span class="gold-accent">fails loudly</span> instead of quietly</h1>
     <p class="subtitle">Security patterns, real bugs, and the verification discipline behind an n8n lifecycle automation build: what held up, what broke, and how each break was actually caught.</p>
     <div class="meta-row">
@@ -599,7 +584,7 @@
       <span><b>Role:</b> design, build, and audit of the full pipeline</span>
     </div>
     <div class="disclaimer">
-      This write-up documents a portfolio demonstration system (PST Academy) built to a standard suitable for review
+      This writeup documents a portfolio demonstration system (PST Academy) built to a standard suitable for review
       in an interview, not a live client deployment. Names attached to test records throughout (Bruce Banner,
       Peter Parker, Steve Rogers) are fictional test personas, not real customers. Workflow internals
       (raw JSON, record IDs, credentials) are intentionally omitted; what follows is the reasoning,
@@ -630,21 +615,21 @@
       Registered &rarr; Agreement Signed &rarr; Access Granted &rarr; Attended/CE Issued.</em> Nine n8n workflows run the
       system: six move a row forward as real events happen (a form submission, a completed order, a
       signed agreement, a logged phone call, a certificate of attendance), two are supporting
-      paths that deliberately advance no one (a signing-link redirect that re-issues expired links, and a
-      staff-triggered certificate resend), and one watches the other eight and reports any failure.
+      paths that deliberately advance no one (a signing link redirect that reissues expired links, and a
+      staff triggered certificate resend), and one watches the other eight and reports any failure.
       Nothing moves a card by hand except the parts
       that genuinely require human judgment: following up, correcting a mistake, deciding a refund.</p>
 
       <p>Built on WordPress and WooCommerce for this demo, but that's the swappable part, not the
       core. The trigger layer, whatever fires "a form was submitted" or "an order was paid", is
-      deliberately isolated from everything else: the upsert that dedupes by email, the no-regression
-      guard, the atomic-claim pattern, the stage model itself. The design intent is that pointing
+      deliberately isolated from everything else: the upsert that dedupes by email, the no regression
+      guard, the atomic claim pattern, the stage model itself. The design intent is that pointing
       the same board at Shopify and Stripe instead of WooCommerce, or Jotform instead of WPForms,
       would only mean swapping the trigger nodes; the security and reliability patterns underneath
       wouldn't need to change. That's a design property, not a claim proven here: this build has
       only ever been tested against the platforms it was actually built on.</p>
 
-      <p>On this specific platform, that trigger layer is a small custom bridge: a must-use
+      <p>On this specific platform, that trigger layer is a small custom bridge: a automatically loaded
       WordPress plugin that listens for the real WordPress or WooCommerce event and forwards it to
       n8n as a webhook call. It's the only custom code sitting between the storefront and the
       automation itself; everything past that boundary is the reusable core described above.</p>
@@ -655,7 +640,7 @@
       chat) and logs the attempt; her row slides itself to
       <em>Contacted</em> without anyone dragging a card. She buys the Online Training tier; the same
       row (not a duplicate) advances to <em>Registered</em>, pulling the product she actually bought,
-      not the one she originally asked about. She e-signs the participation agreement over a link
+      not the one she originally asked about. She signs electronically the participation agreement over a link
       delivered by email; the row advances again, automatically, once DocuSign reports the signature
       back. She attends, staff mark her attended, and a certificate generates itself with the correct
       CE hours for her tier.</p>
@@ -694,18 +679,18 @@
     <div class="prose wide">
 
       <h3>Proving a request is genuine: HMAC signature verification</h3>
-      <p>The order-completed webhook is a public URL. Without a check, anyone who discovered it could
+      <p>The order completed webhook is a public URL. Without a check, anyone who discovered it could
       POST a forged "order paid" event and walk straight to a real certificate with no actual payment.
       WooCommerce and n8n share a secret known only to those two systems, closer to a wax seal than a
       password. WooCommerce signs every webhook payload with <code>HMAC-SHA256(payload, secret)</code>
       and attaches it as a header; n8n recomputes the same signature independently and compares before
       any business logic runs. A mismatch is rejected outright, no logic executed at all.</p>
 
-      <h3>Answering "have I already done this?": the atomic-claim pattern</h3>
+      <h3>Answering "have I already done this?": the atomic claim pattern</h3>
       <p>Two webhook deliveries can arrive within milliseconds of each other: WooCommerce firing
       "order placed" and "order completed" back to back is a real, observed case. A naive
-      "look up, then create-or-update" sequence leaves a window where both executions see "not found"
-      and both create a duplicate row. The fix replaces that two-step sequence with a single upsert
+      "look up, then create or update" sequence leaves a window where both executions see "not found"
+      and both create a duplicate row. The fix replaces that two step sequence with a single upsert
       call against a shared table keyed on a unique event string, and lets the destination database,
       not n8n, arbitrate the race: whichever write lands first creates the row; every later write for
       the same key just matches and updates it.</p>
@@ -726,33 +711,33 @@ If created_records.length == 0 ->  someone already won it  ->  stop, no duplicat
       <p>One shared table covers every stage's idempotency check: a prefix on the key
       (<code>inquiry-...</code>, <code>agreement-claim-...</code>, <code>ce-issued-claim-...</code>) is what
       keeps different claim types from colliding. The same mechanism does double duty later as a
-      <strong>notify-once</strong> guard, not just a create-once guard (see the date-anomaly guard
+      <strong>notify once</strong> guard, not just a create once guard (see the date anomaly guard
       below).</p>
 
-      <h3>Never moving a record backward: no-regression guards</h3>
-      <p>A duplicate or late-arriving event must never undo real progress already made. Before any
-      stage-advancing action runs, the workflow checks where the record currently sits and only
+      <h3>Never moving a record backward: no regression guards</h3>
+      <p>A duplicate or late arriving event must never undo real progress already made. Before any
+      stage advancing action runs, the workflow checks where the record currently sits and only
       proceeds if the move is genuinely forward. The shape of that check depends on whether the
       guarded action itself moves the stage field: sending an agreement, for instance, doesn't change
       stage at all under this system's design, so stage alone can't tell "already sent" from "not yet
-      sent." That gap is exactly what caused a real early bug: toggling an order's status re-sent a
-      brand-new signing envelope every time. The fix pairs the stage check with a dedicated timestamp
+      sent." That gap is exactly what caused a real early bug: toggling an order's status resent a
+      brand new signing envelope every time. The fix pairs the stage check with a dedicated timestamp
       field that only gets set once the action actually happens.</p>
 
-      <h3>Catching bad data, not just missing data: the date-anomaly guard</h3>
+      <h3>Catching bad data, not just missing data: the date anomaly guard</h3>
       <p>A checkbox and a date field are easy for staff to get right in spirit and wrong in the
       details: attendance marked before the agreement was actually signed, or a future date typed by
-      mistake. The certificate-issuance guard checks logical consistency, not just presence:
+      mistake. The certificate issuance guard checks logical consistency, not just presence:
       attendance date can't precede the signed agreement, and can't be in the future. A failure here
-      doesn't just block the certificate. It fires a notify-once alert (via the same atomic-claim
+      doesn't just block the certificate. It fires a notify once alert (via the same atomic claim
       mechanism above) naming the specific problem, so staff know exactly what to go fix rather than
       just that something's wrong.</p>
 
       <h3>Neutralizing injected input: Slack and Airtable</h3>
-      <p>A public form field is attacker-controlled text. Slack's <code>&lt;!channel&gt;</code> mention
-      syntax is real, server-interpreted markup. A customer's name field containing that literal
-      string, pasted unescaped into an internal notification, would mass-ping the whole team. Every
-      customer-originated field going into a Slack message is escaped
+      <p>A public form field is attacker controlled text. Slack's <code>&lt;!channel&gt;</code> mention
+      syntax is real, server interpreted markup. A customer's name field containing that literal
+      string, pasted unescaped into an internal notification, would ping the whole team at once the whole team. Every
+      customer originated field going into a Slack message is escaped
       (<code>&amp;</code>/<code>&lt;</code>/<code>&gt;</code>) before it's interpolated, verified with a
       real injected payload sent through a live order: confirmed to render as inert literal text,
       never as an executed mention.</p>
@@ -771,28 +756,28 @@ If created_records.length == 0 ->  someone already won it  ->  stop, no duplicat
       than "the code handles it": the legitimate path to exploit it is structurally closed, verified
       against the real checkout, not assumed.</p>
 
-      <h3>Signed, expiring links with constant-time comparison</h3>
-      <p>The signing-link a customer receives by email carries a record reference and an expiry,
+      <h3>Signed, expiring links with constant time comparison</h3>
+      <p>The signing link a customer receives by email carries a record reference and an expiry,
       signed together with an HMAC over both values, not just a fixed secret alone, so tampering
       with either value invalidates the signature. Verification uses
       <code>crypto.timingSafeEqual</code> rather than plain string equality, closing a theoretical
-      timing side-channel where an attacker with very precise measurement could in principle infer a
+      timing side channel where an attacker with very precise measurement could in principle infer a
       correct signature one character at a time instead of guessing it whole. All three failure
       modes (missing parameters, bad signature, expired link) show the same generic public message,
       with the real reason routed only to an internal alert for troubleshooting.</p>
 
       <h3>Retry, and the gap it didn't originally cover</h3>
       <p>The writes on the most expensive paths (the certificate generation chain, the signing
-      envelope, and the stage stamps in the agreement, contacted, CE-issued and both order flows)
-      retry automatically on failure: three attempts, a flat two-second interval between them.
+      envelope, and the stage stamps in the agreement, contacted, CE issued and both order flows)
+      retry automatically on failure: three attempts, a flat two second interval between them.
       Coverage is not universal, and it is worth stating precisely instead of rounding up to
-      "everything retries": of the 30 data-write operations across the system, <strong>6 still carry
-      no retry at all</strong>: three record writes in the inquiry flow, the two flag-clears in the
-      certificate resend, and the signing-session call in the redirect flow. Five of those six sit
-      behind an idempotency or atomic-claim gate, so a retry that did fire would be safe; they were
+      "everything retries": of the 30 data write operations across the system, <strong>6 still carry
+      no retry at all</strong>: three record writes in the inquiry flow, the two flag clears in the
+      certificate resend, and the signing session call in the redirect flow. Five of those six sit
+      behind an idempotency or atomic claim gate, so a retry that did fire would be safe; they were
       simply never configured for it. That is a gap rather than a decision, and worth naming as one:
       the retry that exists was deliberately placed on the expensive paths, but its absence elsewhere
-      was never reasoned about either way. The sixth is different in kind: the signing-session call
+      was never reasoned about either way. The sixth is different in kind: the signing session call
       happens on the live redirect path with a customer waiting on the response, where a failure
       surfaces immediately to that person rather than disappearing into a log.</p>
 
@@ -842,10 +827,10 @@ Credential restored -> next real run: 2.16 s, back to normal</pre>
 
       <p>And to be clear about what the test above does and doesn't cover: it proves retry fires on
       the two order flows. The six writes that still have no retry were not tested this way, and the
-      earlier forced-failure test in Section 04 was run on different nodes.</p>
+      earlier forced failure test in Section 04 was run on different nodes.</p>
 
       <p>That said, the retry that does exist is a
-      deliberate, honest tradeoff, not an oversight: this is fixed-interval
+      deliberate, honest tradeoff, not an oversight: this is fixed interval
       retry, not true exponential backoff, because n8n's native retry setting doesn't offer backoff
       natively, and at this system's real concurrency (never more than one or two overlapping events in
       the same few seconds) the "thundering herd" problem that backoff exists to solve simply doesn't
@@ -853,7 +838,7 @@ Credential restored -> next real run: 2.16 s, back to normal</pre>
       for most of this build nothing announced that it had given up. That gap is closed by the
       alerting described next.
       Proving the retry actually fires, rather than just being switched on, took two separate
-      forced-failure tests: Section 04 covers the search nodes, and the test above covers the order
+      forced failure tests: Section 04 covers the search nodes, and the test above covers the order
       flows.</p>
 
       <h3>Knowing when something failed</h3>
@@ -863,7 +848,7 @@ Credential restored -> next real run: 2.16 s, back to normal</pre>
       execution that fails anywhere sends the workflow name, the node that stopped, the error text,
       and a link straight to that execution, to a dedicated Slack channel and an inbox.</p>
 
-      <p>Two details decide how much that actually covers. The error handler is a per-workflow
+      <p>Two details decide how much that actually covers. The error handler is a per workflow
       setting, not a global one, so a workflow that does not name it fails in complete silence. That
       is why all eight were changed here when only two of them needed the retry fix. And because
       retry sits in front of the alert, a blip that recovers on the second attempt never sends
@@ -878,7 +863,7 @@ Credential restored -> next real run: 2.16 s, back to normal</pre>
       at all because it still looks like coverage. A suppression step sits between the failure and the
       notification, keyed on the workflow name plus the current hour: the first failure of a given
       workflow speaks, the rest of that hour stays quiet, and if the problem is still there an hour
-      later it speaks again. The alerts also go to their own channel rather than the staff-facing ones,
+      later it speaks again. The alerts also go to their own channel rather than the staff facing ones,
       since "a node threw a 401" is not something ordinary staff can act on the way "a new inquiry came
       in" is.</p>
 
@@ -929,26 +914,26 @@ Every field populated: workflow name, failed node, error text, and an
       <h3>Restricting who can even attempt a connection</h3>
       <p>The automation engine's own admin login was found, by direct test, reachable from any device
       on the same local network, not just the machine running it, because the default port binding
-      wasn't loopback-restricted. Fixed by binding explicitly to <code>127.0.0.1</code>. This is
+      wasn't loopback restricted. Fixed by binding explicitly to <code>127.0.0.1</code>. This is
       defense in depth in its plainest form: don't rely on login credentials as the only barrier when
       restricting who can even reach the login page is a separate, equally real layer. Confirmed
       before and after with a direct connection attempt from the machine's real network address, not
       assumed from the config change alone.</p>
-      <p>Worth being precise about, since it's not a universal rule: loopback-only is the right call
-      specifically because this is a single-operator local build with no public webhook consumers.
-      That same setting would be the wrong call on a real client's cloud-hosted instance that needs
+      <p>Worth being precise about, since it's not a universal rule: loopback only is the right call
+      specifically because this is a single operator local build with no public webhook consumers.
+      That same setting would be the wrong call on a real client's cloud hosted instance that needs
       to receive genuine public webhooks; the right control there is scoped reachability, a reverse
       proxy, TLS, and firewall rules, not a loopback restriction that would block the legitimate
       traffic the system exists to receive. The setting isn't the lesson. Knowing which deployment
       each setting actually belongs to is.</p>
 
       <h3>A platform quietly protecting itself from itself: the loopback webhook block</h3>
-      <p>The commerce platform's own order webhook goes out through WordPress's built-in HTTP layer,
+      <p>The commerce platform's own order webhook goes out through WordPress's built in HTTP layer,
       and that layer deliberately refuses to let a site call back into itself: a real SSRF
       protection, blocking requests to localhost and loopback addresses by default, plus a separate
       restriction to only a small set of common ports. On a real client's site, pointed at a public
       automation URL, this protection is invisible and correct, doing exactly its job undetected. On
-      this local, single-machine build, it silently blocked every real order's webhook delivery, no
+      this local, single machine build, it silently blocked every real order's webhook delivery, no
       error surfaced anywhere a person would normally look, with nothing to distinguish intentional
       platform security from a plain bug. Found in the commerce platform's own webhook delivery log,
       not guessed at. The Inquiry form's own bridge plugin, built earlier, never hit this at all: it
@@ -957,11 +942,11 @@ Every field populated: workflow name, failed node, error text, and an
       block behind Inquiry instead.</p>
       <p>Fixed with two narrowly scoped filters explicitly allowing only localhost and the
       automation's specific port, and documented as a workaround for the local demo only, from the moment it
-      was written, the same posture as the loopback-binding pattern above: a real client's automation
+      was written, the same posture as the loopback binding pattern above: a real client's automation
       engine sits behind a real public or tunneled URL, so this exact block, and this exact fix,
       would simply never come up there.</p>
 
-      <h3>Bounding what a polling system leaves behind: execution-log pruning</h3>
+      <h3>Bounding what a polling system leaves behind: execution log pruning</h3>
       <p>Every stage that runs on a schedule rather than a webhook, checking Airtable every one to
       five minutes across five separate pollers, produces a permanent execution record for every
       single check, not just the ones that find something to do. Left unmanaged, that record grows
@@ -980,9 +965,9 @@ Every field populated: workflow name, failed node, error text, and an
 
       <h3>Resending without regenerating</h3>
       <p>Every certificate this system issues is captured once, at the moment it's created, and kept
-      permanently rather than treated as a one-time email attachment. Staff can resend that exact
+      permanently rather than treated as a one time email attachment. Staff can resend that exact
       file at any time by checking a single field on the student's record; a separate guard, built on
-      the same atomic-claim pattern used throughout this system, confirms the student was actually
+      the same atomic claim pattern used throughout this system, confirms the student was actually
       certified before anything gets sent, so the resend path can't be triggered by mistake on
       someone who never received a certificate in the first place.</p>
     </div>
@@ -994,13 +979,13 @@ Every field populated: workflow name, failed node, error text, and an
       <span class="chapter-num">03</span>
       <h2 class="chapter-title">Real bugs, found and fixed</h2>
     </div>
-    <p class="chapter-dek">This is the material worth reading most closely. Every case below is a real defect that made it past at least one earlier check. The value is in how each one actually surfaced, not just the one-line fix.</p>
+    <p class="chapter-dek">This is the material worth reading most closely. Every case below is a real defect that made it past at least one earlier check. The value is in how each one actually surfaced, not just the one line fix.</p>
 
     <div class="prose wide">
       <p>A workflow reporting "success" and a workflow doing the <em>right</em> thing are different
       claims. n8n's own execution status only proves the first. Every case in this section is a
       moment where that gap mattered: a node ran clean, logged no error, and still produced the wrong
-      real-world outcome.</p>
+      real world outcome.</p>
     </div>
 
     <div class="prose wide">
@@ -1018,26 +1003,26 @@ Every field populated: workflow name, failed node, error text, and an
       <div class="case-body">
         <div class="trail">
           <span class="found">Found live, real duplicate data</span>
-          <span>Root-caused</span>
+          <span>Root caused</span>
           <span class="fixed">Fixed &amp; proven under real concurrency</span>
         </div>
         <h4>What happened</h4>
-        <p>A real test order triggered WooCommerce's order-placed and order-completed events close
+        <p>A real test order triggered WooCommerce's order placed and order completed events close
         enough together that two separate workflows each ran their own "look up this person, then
         create or update" sequence at nearly the same instant. Both saw "not found." Both created a
         row. The result wasn't a theoretical race, it was two actual rows in Airtable for one actual
         customer.</p>
         <h4>Root cause</h4>
-        <p>A two-step sequence, look up first, act second, is only safe if nothing else can act in
+        <p>A two step sequence, look up first, act second, is only safe if nothing else can act in
         the gap between those two steps. Two workflows reacting to the same order from different
         webhook events made that gap real, not hypothetical.</p>
         <h4>Fix and verification</h4>
-        <p>Replaced the two-step sequence with the atomic-claim pattern described in Section 02: a
+        <p>Replaced the two step sequence with the atomic claim pattern described in Section 02: a
         single upsert against a shared table, arbitrated by the destination database itself rather
-        than by n8n's own logic. Verified by deliberately re-firing both webhooks under genuine
+        than by n8n's own logic. Verified by deliberately refiring both webhooks under genuine
         simultaneous conditions, not sequential testing designed to avoid the race, and confirming
         both executions resolved to the exact same record. This incident is the reason the
-        atomic-claim pattern exists at all; every other idempotency check in this system uses the
+        atomic claim pattern exists at all; every other idempotency check in this system uses the
         identical mechanism because this specific failure was seen firsthand once.</p>
       </div>
     </div>
@@ -1046,28 +1031,28 @@ Every field populated: workflow name, failed node, error text, and an
     <div class="case">
       <div class="case-head">
         <span class="case-tag">Foundational</span>
-        <h3>A repeated status event silently re-sent a signing envelope every time</h3>
+        <h3>A repeated status event silently resent a signing envelope every time</h3>
       </div>
       <div class="case-body">
         <div class="trail">
           <span class="found">Found live</span>
-          <span>Root-caused</span>
+          <span>Root caused</span>
           <span class="fixed">Fixed</span>
         </div>
         <h4>What happened</h4>
-        <p>Toggling an order's status during testing caused a brand-new DocuSign signing envelope to
+        <p>Toggling an order's status during testing caused a brand new DocuSign signing envelope to
         go out on every single toggle, not just the first. A real customer hitting the same underlying
         event twice, for any reason, would have received a fresh signing link each time.</p>
         <h4>Root cause</h4>
-        <p>The no-regression guard protecting this step checked only the record's stage, and sending
+        <p>The no regression guard protecting this step checked only the record's stage, and sending
         an agreement doesn't move the stage in this system's design; the card sits at Registered both
         before and after the agreement is sent. Stage alone genuinely could not distinguish "already
         sent" from "not yet sent," because from stage's point of view those two states look identical.</p>
         <h4>Fix and verification</h4>
         <p>Added a dedicated timestamp field, set only once the envelope actually goes out, and
         changed the guard to check that field instead of relying on stage alone. Confirmed the honest
-        way to state this one: the verification here doesn't carry the same forced-concurrency proof
-        as the case above, it was confirmed by re-triggering the same repeat-event scenario and
+        way to state this one: the verification here doesn't carry the same forced concurrency proof
+        as the case above, it was confirmed by retriggering the same repeat event scenario and
         watching exactly one envelope go out instead of several. The broader lesson generalizes past
         this one workflow: any guard built on "has the record reached the next stage" quietly breaks
         the moment the guarded action doesn't itself move the stage, worth checking for on every
@@ -1078,13 +1063,13 @@ Every field populated: workflow name, failed node, error text, and an
     <!-- Case: Product/Tier mirror bug -->
     <div class="case">
       <div class="case-head">
-        <span class="case-tag">High severity, self-caused</span>
+        <span class="case-tag">High severity, self caused</span>
         <h3>The instinct that fixed one bug quietly created its mirror image elsewhere</h3>
       </div>
       <div class="case-body">
         <div class="trail">
           <span class="found">Found during an audit</span>
-          <span>Root-caused</span>
+          <span>Root caused</span>
           <span class="fixed">Fixed &amp; verified against live config</span>
         </div>
         <h4>What happened</h4>
@@ -1095,7 +1080,7 @@ Every field populated: workflow name, failed node, error text, and an
         is the authoritative record of what someone actually bought.</p>
         <h4>Root cause</h4>
         <p>A later audit found that the same reasoning, always reflect the freshest data, had been
-        applied unconditionally to the Inquiry workflow's own record-upsert step as well, without
+        applied unconditionally to the Inquiry workflow's own record upsert step as well, without
         checking whether an inquiry form is actually authoritative for that field. It isn't: an
         inquiry reflects interest, not a purchase, and interest can legitimately differ from what
         someone eventually buys. But the Inquiry workflow was overwriting Product/Tier on every single
@@ -1103,14 +1088,14 @@ Every field populated: workflow name, failed node, error text, and an
         already signed, even already certified.</p>
         <h4>Why this one mattered more than a display bug</h4>
         <p>Product/Tier feeds directly into the CE certificate's hours calculation, 7 hours for Online
-        Training versus 14 for the in-person tier. A stray follow-up question from a customer who had
+        Training versus 14 for the in person tier. A stray follow up question from a customer who had
         already paid and already been certified could silently overwrite their purchased tier on the board. That's
         a real path to generating a certificate with the wrong CE hours for a paying customer, not a
         cosmetic glitch.</p>
         <h4>Fix and verification</h4>
         <p>Scoped the Inquiry workflow's upsert to only ever write Customer Name, Email, Phone, and
         Message on every inquiry. Product/Tier was moved to the one branch that runs exclusively for
-        genuinely brand-new contacts. Confirmed directly against the live workflow configuration,
+        genuinely brand new contacts. Confirmed directly against the live workflow configuration,
         rather than the original design note, since the relevant logic had physically relocated during
         an earlier restructure and the note no longer matched where the code actually lived.</p>
         <p>Worth stating plainly, since it's the clearest example of this in the whole system: this
@@ -1130,24 +1115,24 @@ Every field populated: workflow name, failed node, error text, and an
       <div class="case-body">
         <div class="trail">
           <span class="found">Found live</span>
-          <span>Root-caused</span>
-          <span>Audited system-wide</span>
+          <span>Root caused</span>
+          <span>Audited system wide</span>
           <span class="fixed">Fixed &amp; proven</span>
         </div>
         <h4>What happened</h4>
         <p>A routine test run failed with a DNS resolution error on a search node, then succeeded
-        cleanly on the next poll a minute later: self-healing, but only by accident.</p>
+        cleanly on the next poll a minute later: self healing, but only by accident.</p>
         <h4>Root cause</h4>
         <p>An earlier reliability pass had added automatic retry to every write that follows a won
-        idempotency claim, the highest-value place for it, since a stuck claim silently blocks
+        idempotency claim, the highest value place for it, since a stuck claim silently blocks
         forward progress forever. But that scope, defined precisely as "downstream of a claim,"
-        didn't include the read-only search nodes that run <em>before</em> a claim is even attempted.
+        didn't include the read only search nodes that run <em>before</em> a claim is even attempted.
         Auditing every workflow directly turned up the identical gap on four more search nodes across
         three other workflows.</p>
         <h4>Fix and verification</h4>
         <p>Retry added to all five affected nodes, one workflow at a time, each proven with a real
         trigger before being published live, not just configured and assumed. The practical impact
-        of the original gap was genuinely minor (a self-healing read, worst case a few minutes'
+        of the original gap was genuinely minor (a self healing read, worst case a few minutes'
         delay), but the audit habit it forced, checking every node against the same failure class and
         not just the one that happened to fail visibly, is what actually mattered.</p>
       </div>
@@ -1162,9 +1147,9 @@ Every field populated: workflow name, failed node, error text, and an
       <div class="case-body">
         <div class="trail">
           <span class="found">Found by reading a real email</span>
-          <span>Root-caused</span>
+          <span>Root caused</span>
           <span>Fixed</span>
-          <span class="fixed">Re-verified on content, not status</span>
+          <span class="fixed">Reverified on content, not status</span>
         </div>
         <h4>What happened</h4>
         <p>An internal "agreement signed" notification went out with the template intact but every
@@ -1173,20 +1158,20 @@ Every field populated: workflow name, failed node, error text, and an
         <h4>Root cause</h4>
         <p>The notification template read a field directly off its immediate upstream node's output.
         That upstream node was a direct API write to Airtable, a documented workaround for a separate
-        platform bug in the vendor's native node (below), and a batch-style write returns its data
-        nested one level deeper than a single-record read does. Reading the shallow shape against the
+        platform bug in the vendor's native node (below), and a batch style write returns its data
+        nested one level deeper than a single record read does. Reading the shallow shape against the
         nested response resolved to nothing, silently, on every single run.</p>
         <h4>The part that actually matters</h4>
         <p>This exact class of bug had already been found and fixed on a <em>different</em> workflow
         weeks earlier. That fix never propagated to this workflow's equivalent nodes, and three
-        separate verification passes (an initial build test, a later retroactive function-check, and
-        this session's own retry-fix testing) all made the identical mistake: each confirmed the node
+        separate verification passes (an initial build test, a later retroactive function check, and
+        this session's own retry fix testing) all made the identical mistake: each confirmed the node
         executed successfully and treated that as proof it worked, without opening the message it
         actually produced.</p>
         <h4>Fix and verification</h4>
         <p>Template corrected to read the correct nested path, matching exactly the pattern
-        already proven elsewhere. Re-verified with a fresh, real trigger, this time by actually reading the resulting
-        email and Slack message, not just confirming they arrived. A system-wide audit followed
+        already proven elsewhere. Reverified with a fresh, real trigger, this time by actually reading the resulting
+        email and Slack message, not just confirming they arrived. A system wide audit followed
         immediately: every notification node in every workflow traced back to its real upstream data
         shape, checked against this exact failure pattern. Clean everywhere else.</p>
       </div>
@@ -1195,7 +1180,7 @@ Every field populated: workflow name, failed node, error text, and an
     <!-- Case: native node 422 -->
     <div class="case">
       <div class="case-head">
-        <span class="case-tag">Root-caused by elimination</span>
+        <span class="case-tag">Root caused by elimination</span>
         <h3>A native platform node failed every real run, and the data was never the cause</h3>
       </div>
       <div class="case-body">
@@ -1211,7 +1196,7 @@ Every field populated: workflow name, failed node, error text, and an
         table configuration explained it.</p>
         <h4>Root cause</h4>
         <p>Three plausible fixes were tried and ruled out in turn, not guessed at: a genuine
-        trailing-newline character in the record-ID expression, enabling the node's Typecast option,
+        trailing newline character in the record ID expression, enabling the node's Typecast option,
         and deleting and fully recreating the node from scratch. None changed the result. The record
         was confirmed innocent by sending the identical payload directly to Airtable's own REST API
         with <code>curl</code>, bypassing the automation platform entirely: it succeeded immediately.
@@ -1220,8 +1205,8 @@ Every field populated: workflow name, failed node, error text, and an
         <h4>Fix and verification</h4>
         <p>Replaced the native node with an HTTP Request node making the identical call directly, the
         same pattern already established elsewhere in this system for this exact class of
-        platform-node unreliability. Two follow-on issues surfaced in the same pass: a date value the
-        native node had been silently reformatting was now rejected by Airtable's date-only field
+        platform node unreliability. Two further issues surfaced in the same pass: a date value the
+        native node had been silently reformatting was now rejected by Airtable's date only field
         until explicitly formatted, and a bearer token moved out of a node field into a proper stored
         credential. Verified against a real trigger, not assumed fixed once the write stopped
         erroring. This same pattern of calling the API directly is what produced the bug
@@ -1238,25 +1223,25 @@ Every field populated: workflow name, failed node, error text, and an
       <div class="case-body">
         <div class="trail">
           <span class="found">Found during a content audit</span>
-          <span>Root-caused</span>
+          <span>Root caused</span>
           <span>Fixed</span>
-          <span class="fixed">Re-verified, real trigger</span>
+          <span class="fixed">Reverified, real trigger</span>
         </div>
         <h4>What happened</h4>
         <p>Found while pulling real execution data for the audit above, not while hunting for this
-        specific bug. The date-consistency guard's alert (described in Section 02) is meant to tell
-        staff exactly what's wrong with a record so they can fix it. When the most likely real-world
-        trigger fired, a signed-date field that's simply blank, the alert rendered the literal text
+        specific bug. The date consistency guard's alert (described in Section 02) is meant to tell
+        staff exactly what's wrong with a record so they can fix it. When the most likely real world
+        trigger fired, a signed date field that's simply blank, the alert rendered the literal text
         "Invalid DateTime" and an empty reason. The one alert built specifically to be informative was,
         in its single most common case, informative about nothing.</p>
         <h4>Root cause</h4>
-        <p>The date-formatting logic assumed the field would always contain a parseable date and never
-        checked for blank. The reason-message logic had exactly two branches, "too early" and "too
+        <p>The date formatting logic assumed the field would always contain a parseable date and never
+        checked for blank. The reason message logic had exactly two branches, "too early" and "too
         late," with no branch at all for "missing."</p>
         <h4>Fix and verification</h4>
         <p>Added an explicit blank check: the alert now reads "not set" in plain English and states
-        the reason as "Agreement Signed Date is not set." Re-triggering the exact scenario required
-        understanding that this alert's own duplicate-suppression key is scoped to the specific date
+        the reason as "Agreement Signed Date is not set." Retriggering the exact scenario required
+        understanding that this alert's own duplicate suppression key is scoped to the specific date
         value involved. The first retry attempt was correctly blocked as a duplicate of the original
         broken alert, requiring a genuinely new date value to produce a fresh one. The second attempt
         confirmed the fix, independently read and confirmed against the real Slack and email output.</p>
@@ -1266,14 +1251,14 @@ Every field populated: workflow name, failed node, error text, and an
     <!-- Case: slack attribution -->
     <div class="case">
       <div class="case-head">
-        <span class="case-tag">System-wide, caught by direct question</span>
+        <span class="case-tag">System wide, caught by direct question</span>
         <h3>A platform default quietly survived a fix that looked complete</h3>
       </div>
       <div class="case-body">
         <div class="trail">
           <span class="found">Caught by reading a real message</span>
-          <span>Root-caused in vendor source</span>
-          <span>Confirmed system-wide</span>
+          <span>Root caused in vendor source</span>
+          <span>Confirmed system wide</span>
           <span class="fixed">Fixed on all instances</span>
         </div>
         <h4>What happened</h4>
@@ -1290,12 +1275,12 @@ Every field populated: workflow name, failed node, error text, and an
         was never going to touch Slack's. The original fix simply didn't know the second setting
         existed.</p>
         <h4>Fix and verification</h4>
-        <p>Every Slack-sending node across every workflow was checked directly against its saved
+        <p>Every Slack sending node across every workflow was checked directly against its saved
         configuration, confirmed the setting was unset (and therefore defaulting on) on all of them,
         not assumed from the one instance that surfaced it. Fixed uniformly, proven live on one
         workflow with a real trigger, the remaining instances verified by direct configuration diff
-        rather than each independently re-triggered: a deliberate, explicit tradeoff for a change
-        that is one generic platform toggle with identical behavior everywhere, not workflow-specific
+        rather than each independently retriggered: a deliberate, explicit tradeoff for a change
+        that is one generic platform toggle with identical behavior everywhere, not workflow specific
         logic, rather than a shortcut taken unilaterally.</p>
       </div>
     </div>
@@ -1303,21 +1288,21 @@ Every field populated: workflow name, failed node, error text, and an
     <!-- Case: access-granted gate bypassed by commerce platform default -->
     <div class="case">
       <div class="case-head">
-        <span class="case-tag">Access-control gap, caught by a documentation question</span>
-        <h3>The signature gate had a payment-shaped hole in it</h3>
+        <span class="case-tag">Access control gap, caught by a documentation question</span>
+        <h3>The signature gate had a payment shaped hole in it</h3>
       </div>
       <div class="case-body">
         <div class="trail">
-          <span class="found">Caught while writing client-facing documentation</span>
-          <span>Root-caused in platform config</span>
+          <span class="found">Caught while writing client facing documentation</span>
+          <span>Root caused in platform config</span>
           <span>Confirmed on a real order</span>
-          <span class="fixed">Fixed and re-verified end-to-end</span>
+          <span class="fixed">Fixed and reverified end to end</span>
         </div>
         <h4>What happened</h4>
         <p>Course access in this system is deliberately gated behind a signed agreement, not behind
-        payment. For a hands-on certification course like this one, releasing access to the course
-        material before a signed waiver is on file is a genuine legal-exposure risk, not a
-        nice-to-have. That rule lived correctly in the design documentation and in the board's own
+        payment. For a hands on certification course like this one, releasing access to the course
+        material before a signed waiver is on file is a genuine legal exposure risk, not a
+        a nice extra. That rule lived correctly in the design documentation and in the board's own
         stage sequence: the "Access granted" stage genuinely only fires once a real signature has
         come back. But for the Online Training tier specifically, the commerce platform underneath
         the board had its own, entirely separate delivery mechanism for downloadable products, and it
@@ -1330,20 +1315,20 @@ Every field populated: workflow name, failed node, error text, and an
         <p>Two settings, confirmed directly rather than assumed: the product itself was flagged as a
         downloadable file, and the platform's own global "grant access after payment" setting was
         switched on. Both predate the automation layer entirely and sit in the commerce platform's own
-        configuration, not in anything the signature-tracking workflow reads or writes. The gate the
+        configuration, not in anything the signature tracking workflow reads or writes. The gate the
         design called for existed only on the board; the actual file delivery was never wired through
         it at all.</p>
         <h4>Fix and verification</h4>
-        <p>The commerce platform's native downloadable-file delivery was switched off for this tier
-        entirely, closing the leak at its source rather than trying to out-race the platform's own
-        timing. A new step was added to the signature-tracking workflow so the course material is
+        <p>The commerce platform's native downloadable file delivery was switched off for this tier
+        entirely, closing the leak at its source rather than trying to outrace the platform's own
+        timing. A new step was added to the signature tracking workflow so the course material is
         emailed directly, and only once the signature is genuinely confirmed, the same point the board
         itself already advances to "Access granted." Before testing live, the change was audited on
-        its own terms: confirmed it inherits the workflow's existing duplicate-send protection, runs
+        its own terms: confirmed it inherits the workflow's existing duplicate send protection, runs
         independently of the team's own internal alert so one failing can't block the other, and
         checked for and cleared any leftover access grants already issued under the old behavior,
         since closing a leak going forward isn't the same claim as confirming nothing already got
-        through in the meantime. Verified on a real order end-to-end: no download appeared anywhere
+        through in the meantime. Verified on a real order end to end: no download appeared anywhere
         in the checkout
         flow, and after a real signature came back, the course material genuinely arrived by email,
         confirmed directly rather than assumed from a clean execution status.</p>
@@ -1353,7 +1338,7 @@ Every field populated: workflow name, failed node, error text, and an
     <div class="prose wide">
       <p><strong>The pattern across all nine cases:</strong> none of them were caught by a status
       check, a structural review, or a "the node ran without erroring" pass. Every one was caught by
-      checking the actual real-world result, real records, real messages, genuine concurrent load,
+      checking the actual real world result, real records, real messages, genuine concurrent load,
       rather than trusting that a clean execution status meant the outcome was correct. That's not a
       coincidence. It's the specific limitation Section 04 addresses directly.</p>
     </div>
@@ -1388,16 +1373,16 @@ Every field populated: workflow name, failed node, error text, and an
       "something actually broke."</p>
 
       <h3>A field can silently store the wrong thing while looking fine</h3>
-      <p>A numeric-type field given a non-numeric value doesn't error in this system's database layer;
+      <p>A numeric type field given a not numeric value doesn't error in this system's database layer;
       it silently stores zero, with no visible signal in either the database's own interface or the
       automation canvas. Caught only by checking the raw stored value directly via API, not through
       any UI. No coded guard was built for it, deliberately: the real production source for that field
-      is always genuinely numeric, so the exposure only exists during manual test-data entry. The
-      right response to a risk that only exists in testing is a testing habit, not a workflow-level
+      is always genuinely numeric, so the exposure only exists during manual test data entry. The
+      right response to a risk that only exists in testing is a testing habit, not a workflow level
       guard against a threat that has no real path to production.</p>
 
       <h3>Proving a fix, not just configuring one</h3>
-      <p>Every real trigger through the retry-protected nodes in Section 02 had, up to this point,
+      <p>Every real trigger through the retry protected nodes in Section 02 had, up to this point,
       happened to succeed on the first attempt: genuine proof the retry configuration doesn't break
       anything, but zero direct proof retry actually <em>fires</em> under a real failure. Closing that
       gap meant deliberately breaking something on purpose: a genuinely invalid credential was swapped
@@ -1422,19 +1407,19 @@ Credential restored -> next real scheduled run: ~2.2 seconds, back to normal</pr
       what supplies the second one.</p>
 
       <h3>What a targeted audit actually proves, stated precisely</h3>
-      <p>After the blank-fields bug in Section 03, every notification node in every workflow was
+      <p>After the blank fields bug in Section 03, every notification node in every workflow was
       traced back to its real upstream data shape and checked against that exact failure pattern,
-      system-wide. It came back clean everywhere else. That is a true, meaningful, and fully verified
+      system wide. It came back clean everywhere else. That is a true, meaningful, and fully verified
       claim, but it is a narrower claim than "the system has no more bugs," and the difference
-      matters. An audit scoped to one specific, well-understood failure pattern cannot speak to a
+      matters. An audit scoped to one specific, well understood failure pattern cannot speak to a
       failure pattern nobody has hypothesized yet. Overstating what a targeted audit proves is its own
       quiet form of the same mistake this whole section is about: mistaking "the check passed" for
       "the thing is actually fine."</p>
 
       <div class="stats">
         <div class="stat"><div class="n">9</div><div class="d">real bug cases in Section 03 alone, found by checking actual results, not status</div></div>
-        <div class="stat"><div class="n">2</div><div class="d">independent system-wide audits run after the first one</div></div>
-        <div class="stat"><div class="n">1</div><div class="d">deliberate live failure-injection test, forced on purpose</div></div>
+        <div class="stat"><div class="n">2</div><div class="d">independent system wide audits run after the first one</div></div>
+        <div class="stat"><div class="n">1</div><div class="d">deliberate live failure injection test, forced on purpose</div></div>
       </div>
     </div>
   </section>
@@ -1449,7 +1434,7 @@ Credential restored -> next real scheduled run: ~2.2 seconds, back to normal</pr
 
     <div class="prose wide">
       <p>Seven real findings are documented here rather than fixed or hidden. Four are deliberate
-      triage calls: real, low-priority tradeoffs weighed and consciously left as-is. Three are open
+      triage calls: real, low priority tradeoffs weighed and consciously left as is. Three are open
       gaps: real limitations of this system at its current scale, honestly named along with exactly
       what would need to change before they'd matter. The point of naming all seven is the same either
       way: a real security and reliability review always turns up more than gets fixed on the first
@@ -1459,28 +1444,28 @@ Credential restored -> next real scheduled run: ~2.2 seconds, back to normal</pr
 
     <div class="finding">
       <div class="finding-head">
-        <h4>Plain comparison instead of constant-time, on the webhook checks</h4>
+        <h4>Plain comparison instead of constant time, on the webhook checks</h4>
         <span class="risk-chip">Theoretical, low practical risk</span>
       </div>
-      <p>The signing-link verification (Section 02) uses a constant-time comparison to close a
-      timing side-channel: a naive equality check stops comparing at the first mismatched character,
+      <p>The signing link verification (Section 02) uses a constant time comparison to close a
+      timing side channel: a naive equality check stops comparing at the first mismatched character,
       so a wrong guess that happens to share more characters with the real secret takes a fraction
       of a second longer to reject than one that's wrong from the very first character. Comparing a
       guess of <code>XBCDE</code> against a real secret of <code>ABCDE</code> fails instantly at
       position 1; comparing <code>ABCDX</code> fails only at position 5, after four correct
       characters in a row. Measured precisely enough, across enough attempts, that timing difference
       can let an attacker recover a secret one character at a time instead of guessing the whole
-      string at once, which is exactly what a constant-time comparison prevents by always checking
-      every character regardless of an early mismatch. The separate webhook-signature check does not
+      string at once, which is exactly what a constant time comparison prevents by always checking
+      every character regardless of an early mismatch. The separate webhook signature check does not
       use this protection. It appears in two workflows, both order flows, and in each one it is a
       plain equality comparison inside a visual condition node.</p>
-      <p class="why"><strong>Why:</strong> the signing-link check already required custom code for its
-      HMAC math, so constant-time comparison was effectively free to add there. Rebuilding those checks
+      <p class="why"><strong>Why:</strong> the signing link check already required custom code for its
+      HMAC math, so constant time comparison was effectively free to add there. Rebuilding those checks
       as custom code <em>solely</em> to add this one protection would mean duplicating the comparison
       in two places and keeping them in sync, since n8n code nodes cannot import each other, trading
       two simple, readable visual checks for real added complexity, against a risk that requires an
       attacker with
-      unrealistically precise timing measurement against a low-value target. Documented and left
+      unrealistically precise timing measurement against a low value target. Documented and left
       as a known, explainable inconsistency rather than silently different for no stated reason.</p>
     </div>
 
@@ -1492,23 +1477,23 @@ Credential restored -> next real scheduled run: ~2.2 seconds, back to normal</pr
       <p>The inquiry form's mapping from field to data matches by field <em>type</em> (name, email, text,
       select) rather than the form builder's internal numeric field ID. The form builder in use is
       known to silently reassign those numeric IDs whenever the form is edited, with no warning: an
-      ID-based mapping ("grab field #14 for the email") would misroute data the next time someone
-      makes a routine edit, with no visible error. Type-based mapping ("grab whatever field is the
+      based on ID mapping ("grab field #14 for the email") would misroute data the next time someone
+      makes a routine edit, with no visible error. Based on type mapping ("grab whatever field is the
       Email type") survives that renumbering, since it never depends on the number at all.</p>
-      <p class="why"><strong>Why:</strong> type-based mapping trades that failure mode for a narrower
+      <p class="why"><strong>Why:</strong> based on type mapping trades that failure mode for a narrower
       one. It only works cleanly because the form currently has
       exactly one field of each type. If a second field of the same type were ever added, for
       instance a new "How did you hear about us?" text field alongside the existing Message text
       field, the mapping would no longer have one obvious answer for "the text field" and could
       silently mismatch the two, again with no visible error. The fix that would close <em>that</em>
-      gap (going back to ID-based mapping) reopens the original one it was built to avoid, so this is
+      gap (going back to based on ID mapping) reopens the original one it was built to avoid, so this is
       left as a documented tripwire for if the form is ever restructured, not treated as something to
       preemptively rebuild against a risk that doesn't exist in the form as it stands today.</p>
     </div>
 
     <div class="finding">
       <div class="finding-head">
-        <h4>No reconciliation if the automation process dies mid-execution</h4>
+        <h4>No reconciliation if the automation process dies mid execution</h4>
         <span class="risk-chip">Real gap at production scale</span>
       </div>
       <p>Every guard in this system assumes the automation engine's own process stays alive between
@@ -1516,37 +1501,37 @@ Credential restored -> next real scheduled run: ~2.2 seconds, back to normal</pr
       record, issuing a certificate) actually finishes. Concretely: the claim gets marked "handled"
       in one step, then the real action, say, emailing a certificate, happens in a later step. If the
       whole process were killed in the gap between those two steps, for instance by a host's
-      out-of-memory killer reclaiming resources on a shared server, the "handled" mark is already
+      out of memory killer reclaiming resources on a shared server, the "handled" mark is already
       permanently saved, but the certificate never actually went out. The process restarts normally
-      afterward and picks up new events fine; the one interrupted mid-flight is left silently marked
+      afterward and picks up new events fine; the one interrupted mid flight is left silently marked
       done forever, with nothing revisiting it and no error thrown anywhere.</p>
       <p class="why"><strong>Why:</strong> this has never actually happened on this system, and
-      forcing it deliberately (killing the process mid-execution, repeatedly, to test recovery) is a
-      meaningfully more invasive test than the credential-based failure injection already run in
+      forcing it deliberately (killing the process mid execution, repeatedly, to test recovery) is a
+      meaningfully more invasive test than the credential based failure injection already run in
       Section 04. At this system's real scale and traffic, the odds of a process crash landing inside
       that specific narrow window are low enough that building a reconciliation mechanism now would be
       solving a problem that has never once occurred, at the cost of real design and testing effort.
       Named here rather than left silent, because a real paying client running meaningful volume
       through a system like this would need two real answers before launch: an alert the moment the
-      process itself dies or restarts, since that's the harder-won information, nobody watching for it
+      process itself dies or restarts, since that's the harder won information, nobody watching for it
       means it's discovered from a customer complaint instead of in real time, and a periodic job that
       separately reconciles any claim older than a threshold with no completed action. That alert
       also needs its own routing and noise handling to actually be useful: sent to whoever provides
-      technical support, not the client's own staff-facing channels, since "the process restarted"
+      technical support, not the client's own staff facing channels, since "the process restarted"
       isn't something ordinary staff can act on the way "a new inquiry came in" is, and triggered on
       genuine state changes rather than every individual restart, so a process dying repeatedly in a
       short window produces one clear escalation instead of a flood of identical pings nobody reads.</p>
       <p>That routing and noise handling now exists, and was proven under a real outage, but for
-      execution failures only (Section 02): a dedicated alerts channel separate from the staff-facing
+      execution failures only (Section 02): a dedicated alerts channel separate from the staff facing
       ones, and an hourly suppression key so a repeatedly failing workflow produces one message rather
       than a stream. Neither of the two answers above is closed by it. An error handler that lives
       inside the automation engine cannot fire when the engine itself is what died, so catching a
       process death still requires a watcher outside the engine, and the reconciliation sweep remains
       unbuilt.</p>
       <p>This exact category of risk was consciously accepted again, not overlooked, when the
-      access-granted fix in Section 03 was built: if the stored course file ever became unreachable
-      mid-delivery, that new step would fail after its retries with the same silent, unwatched outcome
-      described above. Building one-off recovery just for that single step, while every other step in
+      access granted fix in Section 03 was built: if the stored course file ever became unreachable
+      mid delivery, that new step would fail after its retries with the same silent, unwatched outcome
+      described above. Building one off recovery just for that single step, while every other step in
       this system carries the identical exposure, would make that one path inconsistently safer rather
       than actually safer, so it was deliberately left to the same, single future fix named here.</p>
     </div>
@@ -1556,12 +1541,12 @@ Credential restored -> next real scheduled run: ~2.2 seconds, back to normal</pr
         <h4>Rate limits and OAuth refresh under real burst load</h4>
         <span class="risk-chip">Untested at scale</span>
       </div>
-      <p>None of Airtable's, DocuSign's, or Google's rate-limit (429) responses, or the token-refresh
-      behavior of their OAuth-based integrations, have been tested under genuine concurrent burst
+      <p>None of Airtable's, DocuSign's, or Google's rate limit (429) responses, or the token refresh
+      behavior of their OAuth based integrations, have been tested under genuine concurrent burst
       load. Every real test this system has seen involved one or two overlapping people, never dozens
       hitting the same integration in the same second.</p>
-      <p class="why"><strong>Why:</strong> building and load-testing for burst traffic this system has
-      never actually experienced, and has no near-term reason to, would be solving for a scale that
+      <p class="why"><strong>Why:</strong> building and load testing for burst traffic this system has
+      never actually experienced, and has no near term reason to, would be solving for a scale that
       doesn't exist yet rather than the scale that does. Documented as an open question rather than
       assumed fine, since a real client launch (a course cohort opening enrollment all at once, for
       instance) is exactly the kind of event that would create genuine burst load for the first time,
@@ -1572,10 +1557,10 @@ Credential restored -> next real scheduled run: ~2.2 seconds, back to normal</pr
 
     <div class="finding">
       <div class="finding-head">
-        <h4>Google's test-mode OAuth tokens expire every 7 days</h4>
+        <h4>Google's test mode OAuth tokens expire every 7 days</h4>
         <span class="risk-chip">Real incident, platform constraint</span>
       </div>
-      <p>The Gmail credential this system uses genuinely stopped working mid-session, mid-test, with a
+      <p>The Gmail credential this system uses genuinely stopped working mid session, mid test, with a
       "needs to be reconnected" error, and the same thing happened again days later to the Google
       Drive and Slides credentials as well. Root cause, confirmed directly in Google Cloud Console
       rather than guessed: the backing OAuth app is in Google's <em>Testing</em> publishing status,
@@ -1585,9 +1570,9 @@ Credential restored -> next real scheduled run: ~2.2 seconds, back to normal</pr
       integration: every credential built against this OAuth app is on the same 7-day clock.</p>
       <p class="why"><strong>Why:</strong> the actual fix isn't "remember to reconnect every week."
       For a real client, it's getting the OAuth app through Google's formal verification process (a
-      real, non-trivial step required for any app requesting Gmail, Drive, or Slides scopes in
-      production) or switching to a service-account-based auth method that isn't subject to the
-      test-user limit at all. Neither was warranted for a portfolio demo; both are the correct next
+      real, nontrivial step required for any app requesting Gmail, Drive, or Slides scopes in
+      production) or switching to a based on a service account auth method that isn't subject to the
+      test user limit at all. Neither was warranted for a portfolio demo; both are the correct next
       step the moment this pattern gets reused for an actual paying client. Left here specifically
       because a credential that quietly stops working on a schedule is exactly the kind of gap easy
       to miss until it's already broken something a customer was waiting on, and here it happened
@@ -1602,7 +1587,7 @@ Credential restored -> next real scheduled run: ~2.2 seconds, back to normal</pr
       <p>WordPress sends its own mail through Resend, separate from the Gmail account n8n uses for
       everything the automation sends itself. That WordPress path has one job here: WooCommerce's
       order confirmation to the buyer. It has never been delivered, not once, across every order this
-      demo has taken. The separate new-order alert WooCommerce sends the shop admin has delivered
+      demo has taken. The separate new order alert WooCommerce sends the shop admin has delivered
       every time, thirty for thirty. Root cause, confirmed against Resend's own API rather than
       inferred: the site sends from <code>onboarding@resend.dev</code>, Resend's shared unverified
       sender, which delivers only to the exact address registered on the account.</p>
@@ -1630,30 +1615,30 @@ Credential restored -> next real scheduled run: ~2.2 seconds, back to normal</pr
       <p class="why"><strong>Why:</strong> this is a scope choice, not a technical limitation, and
       worth being explicit about which it is. A reminder, for instance, alerting the team if a card
       sits at "Access granted" past some threshold with nothing marked, would sit directly on top of
-      the exact same notify-branch pattern already used at every other stage in this system. Nothing
+      the exact same notify branch pattern already used at every other stage in this system. Nothing
       about the platform or the architecture stands in the way of adding it. It simply wasn't needed
-      to prove the point this demo exists to prove, and was left out on purpose rather than half-built
+      to prove the point this demo exists to prove, and was left out on purpose rather than half built
       or forgotten.</p>
     </div>
 
     <div class="finding">
       <div class="finding-head">
-        <h4>In-person tiers get no automated event-details message</h4>
+        <h4>In person tiers get no automated event details message</h4>
         <span class="risk-chip">Deliberate omission, not a limitation</span>
       </div>
       <p>At Access granted, the Online Training tier gets an automated Welcome Packet email with a PDF
-      attachment pulled from Google Drive: log-in details, what to expect, everything a remote student
-      needs to start. The in-person tiers get nothing at that stage. No email fires, no PDF, no
-      automated trigger of any kind. Staff are left to manually reach out with the details an in-person
+      attachment pulled from Google Drive: login details, what to expect, everything a remote student
+      needs to start. The in person tiers get nothing at that stage. No email fires, no PDF, no
+      automated trigger of any kind. Staff are left to manually reach out with the details an in person
       student actually needs: where to show up, what time, and who to report to.</p>
       <p class="why"><strong>Why:</strong> this is a scope choice, not a technical limitation. The
       branch that sends the Welcome Packet was built to close a real security bug specific to the
-      Online Training tier (Section 03); the equivalent in-person branch was never built because
+      Online Training tier (Section 03); the equivalent in person branch was never built because
       nothing forced it, not because it's hard. The automation itself would mirror the exact same
       pattern already used for the Welcome Packet: the same gate, a false branch instead of a true
-      one, sending an event-details email instead of a Drive PDF. The one genuine blocker is data, not
-      logic: today's board has nowhere to hold per-cohort event details, only a generic label field, so
-      before this gets built the real question to answer is whether in-person training happens at one
+      one, sending an event details email instead of a Drive PDF. The one genuine blocker is data, not
+      logic: today's board has nowhere to hold per cohort event details, only a generic label field, so
+      before this gets built the real question to answer is whether in person training happens at one
       fixed location or varies by cohort and city, since that decides the schema. Sequenced
       deliberately last on the roadmap rather than built now, since it doesn't change whether the demo
       proves what it's meant to prove.</p>

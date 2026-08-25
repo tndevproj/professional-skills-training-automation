@@ -128,13 +128,6 @@
     align-items: center;
     gap: 10px;
   }
-  .eyebrow::before {
-    content: "";
-    display: inline-block;
-    width: 22px;
-    height: 3px;
-    background: var(--accent);
-  }
   h1.title {
     font-family: var(--brand);
     font-weight: 800;
@@ -287,14 +280,6 @@
     font-size: 13px;
     color: var(--accent);
     padding-top: 6px;
-  }
-  .chapter-num::before {
-    content: "";
-    display: block;
-    width: 28px;
-    height: 3px;
-    background: var(--accent);
-    margin-bottom: 10px;
   }
   h2.chapter-title {
     font-family: var(--brand);
@@ -645,12 +630,12 @@
 
   <header class="masthead">
     <p class="eyebrow">System Walkthrough &amp; Capability Overview &middot; Avyxen LLC</p>
-    <h1 class="title">A system built so no inquiry, no signed agreement, and no follow-up <span class="gold-accent">ever slips through the cracks</span></h1>
+    <h1 class="title">A system built so no inquiry, no signed agreement, and no follow up <span class="gold-accent">ever slips through the cracks</span></h1>
     <p class="subtitle">For a course business, a missed inquiry isn't a shrug, it's a lost enrollment, and an enrollment like this one is worth thousands of dollars. This walkthrough shows how the system makes that loss structurally hard to happen.</p>
     <ul class="value-strip">
       <li class="value-item"><span class="check">&check;</span> <span><strong>Every inquiry gets a response</strong> in seconds, not whenever someone happens to check an inbox.</span></li>
       <li class="value-item"><span class="check">&check;</span> <span><strong>Every signed agreement releases access automatically</strong>, nothing waits on a manual step.</span></li>
-      <li class="value-item"><span class="check">&check;</span> <span><strong>Every person is tracked from first contact to certificate</strong>, so a missed follow-up is visible on the board, not lost in someone's memory.</span></li>
+      <li class="value-item"><span class="check">&check;</span> <span><strong>Every person is tracked from first contact to certificate</strong>, so a missed follow up is visible on the board, not lost in someone's memory.</span></li>
     </ul>
     <div class="meta-row">
       <span><b>System:</b> n8n &middot; Airtable &middot; WordPress/WooCommerce &middot; Stripe &middot; DocuSign &middot; Gmail &middot; Resend &middot; Slack</span>
@@ -670,13 +655,13 @@
     handful of inquiries a month go unanswered, or a signed agreement sits waiting for someone to
     notice it, that's real recurring revenue leaking out of the business every month, not a
     rounding error.</p>
-    <p>The upside runs the other way too. Faster response time is one of the best-documented
+    <p>The upside runs the other way too. Faster response time is one of the best documented
     levers for closing more leads, and every hour your team isn't manually checking inboxes or
     updating a spreadsheet by hand is an hour they can spend on the conversations that actually
     close deals. A system like this doesn't just stop losses, it gives your team more selling time
     and a faster path from inquiry to paid student.</p>
     <p class="cta-line">What follows is the same system explained two ways: this business case,
-    and below it, the full day-to-day operating manual, written the way your own team would
+    and below it, the full day to day operating manual, written the way your own team would
     actually run it. If a system like this is what your business needs, reach out at
     <a href="https://avyxen.com/" target="_blank" rel="noopener noreferrer">avyxen.com</a>.</p>
   </div>
@@ -708,7 +693,7 @@
 
       <p><strong>Built on WordPress and WooCommerce here, but that's not what makes it
       valuable.</strong> That part is built to be swapped out. The pieces that actually do the
-      work, matching people by email, never double-booking a card, moving someone forward only
+      work, matching people by email, never double booking a card, moving someone forward only
       when they really did something, don't care which website or payment platform is feeding
       them. A different client on a different storefront or a different form tool would mean
       rebuilding the connections at the very front of the system, not rebuilding the system
@@ -750,7 +735,7 @@
       <p><strong>Want the technical proof behind that claim?</strong> The real bugs this system
       caught along the way, and exactly how each one was actually verified, are documented in the
       companion <a href="challenges-fixes-security-writeup.html" target="_blank"
-      rel="noopener noreferrer">technical write-up</a>.</p>
+      rel="noopener noreferrer">technical writeup</a>.</p>
     </div>
   </section>
 
@@ -778,7 +763,7 @@
           <li><strong>What a human does:</strong> nothing yet.</li>
         </ul>
         <div class="evidence">
-          <div class="evidence-label">Real-world example</div>
+          <div class="evidence-label">Real world example</div>
           <p>Maria fills out the inquiry form asking whether the online course counts for CE. Within
           seconds her card is on the board at Inquiry, the team sees a Slack alert, and Maria gets an
           automatic acknowledgement so she isn't left wondering whether the form worked. Nobody had to
@@ -812,9 +797,9 @@
         attempt for that person, oldest to newest, so anyone on the team can see the full contact
         history at a glance.</p>
         <div class="evidence">
-          <div class="evidence-label">Real-world example</div>
+          <div class="evidence-label">Real world example</div>
           <p>A staff member emails Maria back, answers her CE question, and logs it as an email
-          contact attempt with a one-line note. Within about a minute her card slides to Contacted on
+          contact attempt with a one line note. Within about a minute her card slides to Contacted on
           its own, no dragging required. The judgment, what to say to Maria, is entirely human; only
           the bookkeeping got automated.</p>
         </div>
@@ -839,7 +824,7 @@
           9).</li>
         </ul>
         <div class="evidence">
-          <div class="evidence-label">Real-world example</div>
+          <div class="evidence-label">Real world example</div>
           <p>Maria buys the Online Training tier. Her existing card slides to Registered, the same
           row, no second card. Matching by email is what keeps her from being duplicated.</p>
         </div>
@@ -853,7 +838,7 @@
       </div>
       <div class="case-body">
         <ul style="margin:0 0 16px 20px; padding:0; color:var(--ink-soft); font-size:14.5px; line-height:1.75;">
-          <li><strong>What triggers it:</strong> the person e-signs the course participation agreement
+          <li><strong>What triggers it:</strong> the person signs electronically the course participation agreement
           through DocuSign. The system checks every minute or so for newly completed signatures.
           DocuSign also sends the signer its own confirmation copy automatically, no extra email
           needed from this system.</li>
@@ -872,10 +857,10 @@
         </ul>
         <p style="margin:0 0 16px; font-size:14.5px; color:var(--ink-soft);"><strong>Why this
         matters:</strong> access to the course isn't released the moment someone pays. It's held
-        until a signed agreement is on file. For a hands-on certification course like this one, that's
+        until a signed agreement is on file. For a hands on certification course like this one, that's
         a genuine safeguard, not just paperwork.</p>
         <div class="evidence">
-          <div class="evidence-label">Real-world example</div>
+          <div class="evidence-label">Real world example</div>
           <p>Maria signs the course participation agreement online. Within about a minute her
           Agreement Signed Date is stamped and her card lands on Access Granted, and the team gets a
           single "Agreement signed" notification. Her signature date stays on the record permanently
@@ -895,7 +880,7 @@
           same automated step above. Signing an agreement now cascades straight into granting access;
           a customer doesn't have to wait on a separate check.</li>
           <li><strong>Fulfillment:</strong> the Online Training tier is a downloadable Course Access
-          &amp; Welcome Packet (the two in-person tiers are events, nothing to download).</li>
+          &amp; Welcome Packet (the two in person tiers are events, nothing to download).</li>
           <li><strong>How the customer receives it:</strong> once access is genuinely granted,
           the system emails her the Course Access &amp; Welcome Packet directly, as an attachment.
           Nothing is available for download at checkout, on purpose: handing over the course material
@@ -912,12 +897,12 @@
         </ul>
         <p style="margin:0 0 16px; font-size:14.5px; color:var(--ink-soft);"><strong>Heads up for
         staff:</strong> that automated email only covers the Online Training tier. For the two
-        in-person tiers, nothing fires here yet, no email, no packet. Staff need to reach out
-        manually with what an in-person student actually needs to know: where to show up, what time,
+        in person tiers, nothing fires here yet, no email, no packet. Staff need to reach out
+        manually with what an in person student actually needs to know: where to show up, what time,
         and who to report to. An automated version of this is possible, and would follow the same
         pattern as the Welcome Packet email above, it just wasn't built for the demo.</p>
         <div class="evidence">
-          <div class="evidence-label">Real-world example</div>
+          <div class="evidence-label">Real world example</div>
           <p>Maria finishes checkout and sees her order confirmation, but no course material yet,
           nothing to download. A few minutes later she signs her agreement, and her Welcome Packet
           arrives by email automatically the same moment her card moves to Access Granted.</p>
@@ -927,7 +912,7 @@
 
     <div class="case">
       <div class="case-head">
-        <span class="case-tag" style="color:var(--accent);">Staff-triggered, then automated</span>
+        <span class="case-tag" style="color:var(--accent);">Staff triggered, then automated</span>
         <h3>6. Attended / CE Issued</h3>
       </div>
       <div class="case-body">
@@ -935,7 +920,7 @@
           <li><strong>What triggers it:</strong> a staff member marks the person Attended with a
           completion date on their board record. This is a deliberate human step: attendance and
           passing an assessment isn't something a website can confirm on its own. The system checks
-          for this roughly every five minutes, deliberately slower than the near-instant checks used
+          for this roughly every five minutes, deliberately slower than the near instant checks used
           elsewhere, because a certificate issued by accident for a course this expensive isn't a
           cheap mistake to undo. That gap trades a little speed for a real window to catch and fix a
           mistake before it's processed.</li>
@@ -958,7 +943,7 @@
         there too long could be added on top of this system later, it just wasn't built for the
         demo.</p>
         <div class="evidence">
-          <div class="evidence-label">Real-world example</div>
+          <div class="evidence-label">Real world example</div>
           <p>Maria finishes the seven modules and passes the assessment. A staff member marks her
           Attended, and within about a minute her personalized CE certificate lands in her inbox and
           her card moves to Attended/CE Issued.</p>
@@ -1006,14 +991,14 @@
       <p>Behind the scenes, a small internal table keeps track of which automated actions have
       already run, so a webhook or check that accidentally fires twice can't send a duplicate email,
       issue a duplicate certificate, or advance a card twice. Staff never open it and never need to;
-      it holds a single field: a one-line marker for each action already taken. There are no
+      it holds a single field: a one line marker for each action already taken. There are no
       names, no courses, no order totals, no message content and no notes.</p>
 
       <p>One thing to be aware of, though: to keep those markers unique per person, many of them have
       the customer's <strong>email address built into the marker text</strong> (for example,
       <code>agreement-signed-claim-maria@example.com</code>). So while this table holds no customer
       <em>record</em>, it does contain email addresses. That matters practically in two ways: it's in
-      scope for a data-deletion request, and access to it should be treated like access to any other
+      scope for a data deletion request, and access to it should be treated like access to any other
       table holding personal data, not as a purely technical scratch pad.</p>
 
       <h3>If something breaks</h3>
@@ -1055,16 +1040,16 @@
         <li style="margin-bottom:14px;"><strong>Staff advance someone by mistake.</strong> The system
         still protects that stage from going backward; a human corrects it, and the notification that
         already fired prompts them to look. Automation never undoes a human's forward move.</li>
-        <li style="margin-bottom:14px;"><strong>A customer accidentally re-orders (a duplicate
+        <li style="margin-bottom:14px;"><strong>A customer accidentally reorders (a duplicate
         order).</strong> No duplicate row gets created and the stage stays protected; a notification
         lets a human catch and refund the double. The board tracks the person, not the order.</li>
         <li style="margin-bottom:14px;"><strong>A returning inquirer inquires again</strong> (a
-        follow-up question, or an accidental resubmit). Same protection as situation 5, just from the
-        inquiry side. A brand-new person gets a fresh card at Inquiry. Someone who already inquired
+        follow up question, or an accidental resubmit). Same protection as situation 5, just from the
+        inquiry side. A brand new person gets a fresh card at Inquiry. Someone who already inquired
         but hasn't moved further gets their same card refreshed with the new message, no duplicate.
         Someone who's already moved past Inquiry still gets their message logged, but their stage is
         never pushed backward. Every resubmission also sends the team a fresh Slack ping and email
-        with whatever she wrote this time, not just on the very first one. Maria emails a follow-up
+        with whatever she wrote this time, not just on the very first one. Maria emails a follow up
         question after she's already registered: her card picks up the new note but stays at
         Registered, not knocked back to Inquiry, and staff still get notified of her new message.</li>
         <li style="margin-bottom:14px;"><strong>A customer buys a different tier than they originally
@@ -1080,14 +1065,14 @@
         <li style="margin-bottom:14px;"><strong>Staff accidentally uncheck "Attended" on a record
         that's already been certified.</strong> Nothing happens, on purpose. Once a certificate has
         been issued, that record permanently falls outside what the system looks for next, so
-        toggling that box afterward can't trigger a resend, an un-send, or any error. The three other
+        toggling that box afterward can't trigger a resend, an unsend, or any error. The three other
         independent records of the certificate, described in the previous section, still exist
-        regardless; a single accidental click can't make a certificate un-happen.</li>
+        regardless; a single accidental click can't make a certificate unhappen.</li>
         <li><strong>Staff enter a completion date that doesn't make chronological sense</strong>
         (before the agreement was even signed, or a date in the future). The certificate is not
         issued. The system catches this automatically, alerts staff once by Slack and email so it
         doesn't get missed, and stops there. Fixing the date is all it takes; the next check picks it
-        up normally. This exists because a CE-accredited certificate with an impossible date is a
+        up normally. This exists because a CE accredited certificate with an impossible date is a
         real audit risk, not a cosmetic typo.</li>
       </ol>
     </div>
@@ -1108,12 +1093,12 @@
 
       <p><strong>One normal exception:</strong> when a new order arrives from someone who has never
       been on the board before, the system creates their row first and stamps their stage a moment
-      later. For those few seconds the brand-new card legitimately appears here. If you refresh and
+      later. For those few seconds the brand new card legitimately appears here. If you refresh and
       it's gone, nothing was wrong. Treat a card as needing attention only if it's <em>still</em>
       sitting in Uncategorized after a minute or so.</p>
 
       <h3>"+ Add contact" is for manual entry</h3>
-      <p>For people who didn't come through the website (a phone lead, a referral, a walk-in, an
+      <p>For people who didn't come through the website (a phone lead, a referral, a walk in, an
       offline registration), click "+ Add contact" in the right column and fill in the details. They
       drop onto the board at that stage. The board captures everyone, not just the automated
       entries.</p>
