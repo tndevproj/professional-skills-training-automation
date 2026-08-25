@@ -1673,18 +1673,18 @@ Credential restored -> next real scheduled run: ~2.2 seconds, back to normal</pr
         Security and reliability aren't a pass added at the end here. They're default behavior:
         secrets kept out of anywhere a browser or database dump could expose them, every public entry
         point authenticated before it's trusted, and, once a real race condition actually produced a
-        duplicate record, every concurrent-write path rebuilt to be safe by construction rather than
+        duplicate record, every path where two runs could write at once rebuilt to be safe by construction rather than
         by hoping the timing works out. That standard held for everything built after that point.
       </p>
       <p style="margin:0 0 14px; font-size:15.5px; color:var(--ink-soft);">
         The more useful claim is the second half: nine real bugs made it past earlier checks anyway,
         every one of them invisible to "did the node report success," and every one of them was still
         found by checking the actual result instead of trusting a clean status, and by deliberately
-        re-checking every place a bug class already proven once could recur. That's the actual
+        going back over every place a bug class already proven once could recur. That's the actual
         discipline on display here, not a system that never broke.
       </p>
       <p style="margin:0 0 14px; font-size:15.5px; color:var(--ink-soft);">
-        For the plain-language version of how this system actually runs day to day, stage by
+        For a plain English version of how this system actually runs day to day, stage by
         stage, see the companion <a href="HANDOFF-lifecycle-explained.html" target="_blank"
         rel="noopener noreferrer">client handoff walkthrough</a>.
       </p>
