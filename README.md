@@ -1,4 +1,4 @@
-# Professional Skills Training — Lifecycle Automation
+# Professional Skills Training: Lifecycle Automation
 
 A working, end-to-end customer-lifecycle automation system: WordPress/WooCommerce storefront →
 n8n orchestration → Airtable CRM → DocuSign e-signature → Google Slides certificate generation,
@@ -184,8 +184,8 @@ returned `Forbidden`.
 
 Two full write-ups go beyond this README:
 
-- **[Client Handoff Walkthrough](https://tndevproj.github.io/professional-skills-training-automation/HANDOFF-lifecycle-explained.html)** ([PDF](docs/HANDOFF-lifecycle-explained.pdf)) — the customer lifecycle explained through a real walkthrough, not a flowchart.
-- **[Challenges, Fixes & Security](https://tndevproj.github.io/professional-skills-training-automation/challenges-fixes-security-writeup.html)** ([PDF](docs/challenges-fixes-security-writeup.pdf)) — the real bugs found, how they were diagnosed, and the security hardening applied.
+- **[Client Handoff Walkthrough](https://tndevproj.github.io/professional-skills-training-automation/HANDOFF-lifecycle-explained.html)** ([PDF](docs/HANDOFF-lifecycle-explained.pdf)). The customer lifecycle explained through a real walkthrough, not a flowchart.
+- **[Challenges, Fixes & Security](https://tndevproj.github.io/professional-skills-training-automation/challenges-fixes-security-writeup.html)** ([PDF](docs/challenges-fixes-security-writeup.pdf)). The real bugs found, how they were diagnosed, and the security hardening applied.
 
 ## About This Project
 
@@ -215,7 +215,7 @@ for reuse.
 
 ## Contact
 
-**Tony Ngo** — AI Automation Specialist, [Avyxen LLC](https://avyxen.com)
+**Tony Ngo**, AI Automation Specialist, [Avyxen LLC](https://avyxen.com)
 
 Open to automation engineering roles and client work. Reach me at
 [tony@avyxen.com](mailto:tony@avyxen.com).

@@ -659,7 +659,7 @@
     </div>
     <div class="disclaimer">
       This walkthrough describes a portfolio demonstration system (PST Academy) built to
-      interview-grade standard, not a live client deployment. Maria, the applicant followed
+      a standard suitable for review in an interview, not a live client deployment. Maria, the applicant followed
       throughout, is a fictional persona used to teach the lifecycle, not a real customer.
     </div>
   </header>
@@ -718,8 +718,8 @@
       system knows how to react to. Plenty of real people never fill out that form at all, they call
       the number on the website, message the team on social media, meet someone from the team at an
       event, or just decide to buy outright. Any of those paths still lands the person on the board,
-      just starting from whichever stage matches what they actually did (a straight-to-purchase
-      person lands directly at Registered, see stage 3 below).</p>
+      just starting from whichever stage matches what they actually did (someone who goes straight to purchase
+      lands directly at Registered, see stage 3 below).</p>
     </div>
 
     <blockquote class="pull">
@@ -773,8 +773,7 @@
           website.</li>
           <li><strong>What's automated:</strong> a row appears on the board at Inquiry; the team gets
           a Slack ping and an email; and <strong>the person who inquired is automatically sent a
-          confirmation email</strong> ("We received your inquiry &mdash; PST Academy") so they know it
-          went through. Worth knowing before you call them: they've already heard from the system, so
+          confirmation email</strong> so they know it went through. Worth knowing before you call them: they've already heard from the system, so
           your outreach isn't the first contact they've had.</li>
           <li><strong>What a human does:</strong> nothing yet.</li>
         </ul>
@@ -797,8 +796,8 @@
         <ul style="margin:0 0 16px 20px; padding:0; color:var(--ink-soft); font-size:14.5px; line-height:1.75;">
           <li><strong>What triggers it:</strong> a staff member actually reaches out to the person
           (a phone call, an email, or the website chat) and logs that attempt in a Contact Log entry:
-          who reached out, which channel, and a short note. The reaching-out itself is still entirely
-          human judgment; only the card-moving part is automated.</li>
+          who reached out, which channel, and a short note. Reaching out is still entirely
+          human judgment; only the moving of the card is automated.</li>
           <li><strong>What's automated:</strong> the system checks every minute or so for anyone
           still sitting at Inquiry who now has at least one logged contact attempt, and moves their
           card to Contacted automatically. Once someone's moved past Inquiry, they can never trigger
@@ -835,8 +834,8 @@
           inquired, a fresh row is created directly at Registered. The card's product/tier always
           updates to match what was actually bought, even if it's different from what she originally
           asked about (see situation 9 later). Slack and email fire to the team.</li>
-          <li><strong>What a human does:</strong> nothing, unless the purchased tier differs from an
-          already-paid-for prior order, that price difference is a manual billing step (situation
+          <li><strong>What a human does:</strong> nothing, unless the purchased tier differs from a
+          prior order they already paid for, that price difference is a manual billing step (situation
           9).</li>
         </ul>
         <div class="evidence">
@@ -855,7 +854,7 @@
       <div class="case-body">
         <ul style="margin:0 0 16px 20px; padding:0; color:var(--ink-soft); font-size:14.5px; line-height:1.75;">
           <li><strong>What triggers it:</strong> the person e-signs the course participation agreement
-          through DocuSign. The system checks every minute or so for newly-completed signatures.
+          through DocuSign. The system checks every minute or so for newly completed signatures.
           DocuSign also sends the signer its own confirmation copy automatically, no extra email
           needed from this system.</li>
           <li><strong>What's automated:</strong> the system matches the signer's email back to their
@@ -937,7 +936,7 @@
           completion date on their board record. This is a deliberate human step: attendance and
           passing an assessment isn't something a website can confirm on its own. The system checks
           for this roughly every five minutes, deliberately slower than the near-instant checks used
-          elsewhere, because an accidentally-issued certificate for a course this expensive isn't a
+          elsewhere, because a certificate issued by accident for a course this expensive isn't a
           cheap mistake to undo. That gap trades a little speed for a real window to catch and fix a
           mistake before it's processed.</li>
           <li><strong>Artifact:</strong> a landscape Certificate of Completion PDF with the
@@ -965,13 +964,13 @@
           her card moves to Attended/CE Issued.</p>
         </div>
         <h4 style="margin:22px 0 10px; font-family:var(--brand); font-size:16px; font-weight:700;">How to prove a certificate was actually provided</h4>
-        <p style="margin:0 0 10px; font-size:14.5px; color:var(--ink-soft);">Four independent,
-        cross-checkable records exist for every certificate issued, not just one field:</p>
+        <p style="margin:0 0 10px; font-size:14.5px; color:var(--ink-soft);">Four independent records that can be
+        checked against each other exist for every certificate issued, not just one field:</p>
         <ol style="margin:0 0 12px 22px; padding:0; color:var(--ink-soft); font-size:14.5px; line-height:1.75;">
           <li><strong>The certificate file itself.</strong> Every certificate is a permanently
           archived file (never deleted, named with the student and date), convertible back to a PDF
           at any time, the actual document, not just a record that one was made.</li>
-          <li><strong>The issued-date field</strong> on the board record: the timestamp.</li>
+          <li><strong>The issued date field</strong> on the board record: the timestamp.</li>
           <li><strong>Who confirmed it, and when:</strong> which staff member marked attendance, and
           exactly what time.</li>
           <li><strong>The delivery email itself</strong>, sitting in the outbound mailbox's sent
@@ -979,8 +978,8 @@
           generated.</li>
         </ol>
         <p style="margin:0 0 22px; font-size:14.5px; color:var(--ink-soft);">If any one field on a
-        record ever looks inconsistent, say, someone unchecked Attended on an already-certified
-        record by accident, the other three sources still independently confirm what happened. A
+        record ever looks inconsistent, say, someone unchecked Attended by accident on a record that was
+        already certified, the other three sources still independently confirm what happened. A
         single accidental click can't erase the paper trail.</p>
         <h4 style="margin:22px 0 10px; font-family:var(--brand); font-size:16px; font-weight:700;">Resending a certificate</h4>
         <p style="margin:0; font-size:14.5px; color:var(--ink-soft);">Because the certificate file
@@ -998,7 +997,7 @@
     <div class="prose wide">
       <h3>Payment</h3>
       <p>Checkout runs on Stripe, in test mode, no actual charges. Registered reflects an actual
-      test payment, not a placeholder, riding the same order-to-Registered automation already
+      test payment, not a placeholder, riding the same automation from order to Registered already
       described above. Stripe never needed its own automated step: it's a WooCommerce payment
       plugin, so a paid order looks the same to the board no matter which gateway processed the
       card.</p>
@@ -1006,7 +1005,7 @@
       <h3>The system's own bookkeeping</h3>
       <p>Behind the scenes, a small internal table keeps track of which automated actions have
       already run, so a webhook or check that accidentally fires twice can't send a duplicate email,
-      issue a duplicate certificate, or double-advance a card. Staff never open it and never need to;
+      issue a duplicate certificate, or advance a card twice. Staff never open it and never need to;
       it holds a single field: a one-line marker for each action already taken. There are no
       names, no courses, no order totals, no message content and no notes.</p>
 
