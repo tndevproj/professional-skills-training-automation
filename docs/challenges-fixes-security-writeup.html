@@ -955,7 +955,7 @@ Every field populated: workflow name, failed node, error text, and an
       live configuration. Confirmed directly against the running system instead of trusted:
       retention had never been configured, and the real execution store had already grown to
       <strong>7,564 executions and 154MB in just 8 days</strong>, with no cap in sight. Fixed by
-      explicitly configuring a 14-day pruning window rather than continuing to rely on an unverified
+      explicitly configuring a 14 day pruning window rather than continuing to rely on an unverified
       default, then verified live against the running container's actual environment variables, not
       just the config file.</p>
       <p>The lesson generalizes past this one setting: "the platform probably handles that by
@@ -1567,7 +1567,7 @@ Credential restored -> next real scheduled run: ~2.2 seconds, back to normal</pr
       and Google documents that refresh tokens issued to test users under that status expire after 7
       days, requiring a manual reconnect. Not a bug in anything built here, a real platform limitation
       of the environment this demo runs in, and one that isn't specific to any single Google
-      integration: every credential built against this OAuth app is on the same 7-day clock.</p>
+      integration: every credential built against this OAuth app is on the same 7 day clock.</p>
       <p class="why"><strong>Why:</strong> the actual fix isn't "remember to reconnect every week."
       For a real client, it's getting the OAuth app through Google's formal verification process (a
       real, nontrivial step required for any app requesting Gmail, Drive, or Slides scopes in

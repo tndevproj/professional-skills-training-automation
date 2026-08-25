@@ -26,7 +26,7 @@ and what's real vs. illustrative.
 |---|---|---|
 | Orchestration | n8n (Docker) | Runs all 9 real workflows across the customer lifecycle |
 | Database / CRM | Airtable | Stage based Kanban board, linked Contact Log, idempotency ledger |
-| Storefront | WordPress + WooCommerce | Real 3-tier variable product, order/checkout events, Stripe for payment |
+| Storefront | WordPress + WooCommerce | Real 3 tier variable product, order/checkout events, Stripe for payment |
 | Inquiry form | WPForms | Pre sale questions, starts the lifecycle at Inquiry |
 | E signature | DocuSign (sandbox) | Real envelope creation and signature completion detection |
 | Team notifications | Slack | 6 channels: 5 business, plus a dedicated `#alerts` channel for operational failures |
@@ -35,7 +35,7 @@ and what's real vs. illustrative.
 | Certificates | Google Slides + Google Drive | Template merge, PDF export, storage and delivery |
 
 **Why n8n, not Make.** The build started on Make and moved to n8n once Make's free tier hit its
-2-active scenario cap mid build. Self hosted n8n runs at $0 with no scenario limit, and it fits a
+2 active scenario cap mid build. Self hosted n8n runs at $0 with no scenario limit, and it fits a
 security first approach better than a SaaS platform holding the credentials. A frozen Make version
 still exists in parallel, for clients whose team already prefers Make.
 
@@ -52,7 +52,7 @@ branches.
 
 **[PST] Contact logged → Contacted stage**
 ![Contacted workflow](screenshots/n8n-02-contacted.png)
-A 60-second poller. Advances Stage the moment staff logs a Contact Log entry against an Inquiry-
+A 60 second poller. Advances Stage the moment staff logs a Contact Log entry against an Inquiry-
 stage contact. The no regression guard is just the search filter itself: a record leaves the
 match the instant it advances, so it can't re fire.
 
@@ -70,7 +70,7 @@ carrying an HMAC signed, time limited token.
 ![Sign Agreement Redirect workflow](screenshots/n8n-05-sign-agreement-redirect.png)
 Verifies the signing link token with a constant time comparison (`crypto.timingSafeEqual`), then
 generates a brand new one time DocuSign session and redirects the customer straight into it. Also
-handles link resends: a 5-minute poller watches for a staff checked "Resend Signing Link" box on
+handles link resends: a 5 minute poller watches for a staff checked "Resend Signing Link" box on
 Airtable, claims it atomically, generates a fresh link through the same path as the original, and
 emails it, plus a separate cleanup poller that quietly unchecks that same box if it's ever checked
 on a customer who's already signed. Harmless, but it shouldn't sit there looking unresolved.
@@ -129,9 +129,9 @@ others. That pattern is documented once and reused across every stage, not reinv
 workflow.
 
 The specific timings are settings, not fixed architecture. The polling workflows run on 60s
-(`Contact logged → Contacted stage`), ~60-90s (`DocuSign completed → Agreement signed stage`), or
-5-minute (`Attendance confirmed → CE issued stage`, `Resend Certificate`) Schedule Triggers, and
-the alert workflow's duplicate suppression window is a separate 1-hour clock bucket. All of these
+(`Contact logged → Contacted stage`), ~60 to 90s (`DocuSign completed → Agreement signed stage`), or
+5 minute (`Attendance confirmed → CE issued stage`, `Resend Certificate`) Schedule Triggers, and
+the alert workflow's duplicate suppression window is a separate 1 hour clock bucket. All of these
 are single configuration values, not hardcoded assumptions, tuned to whatever polling cadence and
 alert noise tolerance an actual deployment needs.
 
