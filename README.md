@@ -184,8 +184,8 @@ returned `Forbidden`.
 
 Two full write-ups go beyond this README:
 
-- **[Client Handoff Walkthrough](docs/HANDOFF-lifecycle-explained.html)** ([PDF](docs/HANDOFF-lifecycle-explained.pdf)) — the customer lifecycle explained through a real walkthrough, not a flowchart.
-- **[Challenges, Fixes & Security](docs/challenges-fixes-security-writeup.html)** ([PDF](docs/challenges-fixes-security-writeup.pdf)) — the real bugs found, how they were diagnosed, and the security hardening applied.
+- **[Client Handoff Walkthrough](https://tndevproj.github.io/professional-skills-training-automation/HANDOFF-lifecycle-explained.html)** ([PDF](docs/HANDOFF-lifecycle-explained.pdf)) — the customer lifecycle explained through a real walkthrough, not a flowchart.
+- **[Challenges, Fixes & Security](https://tndevproj.github.io/professional-skills-training-automation/challenges-fixes-security-writeup.html)** ([PDF](docs/challenges-fixes-security-writeup.pdf)) — the real bugs found, how they were diagnosed, and the security hardening applied.
 
 ## About This Project
 
