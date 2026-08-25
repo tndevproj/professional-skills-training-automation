@@ -592,15 +592,15 @@
   <header class="masthead">
     <p class="eyebrow">Technical write-up &middot; Avyxen LLC</p>
     <h1 class="title">Building a system that <span class="gold-accent">fails loudly</span> instead of quietly</h1>
-    <p class="subtitle">Security patterns, real bugs, and the verification discipline behind an n8n lifecycle-automation build: what held up, what broke, and how each break was actually caught.</p>
+    <p class="subtitle">Security patterns, real bugs, and the verification discipline behind an n8n lifecycle automation build: what held up, what broke, and how each break was actually caught.</p>
     <div class="meta-row">
       <span><b>System:</b> n8n &middot; Airtable &middot; WordPress/WooCommerce &middot; Stripe &middot; DocuSign &middot; Gmail &middot; Resend &middot; Slack</span>
       <span><b>Author:</b> Tony Ngo, AI Automation Specialist</span>
       <span><b>Role:</b> design, build, and audit of the full pipeline</span>
     </div>
     <div class="disclaimer">
-      This write-up documents a portfolio demonstration system (PST Academy) built to interview-grade
-      standard, not a live client deployment. Names attached to test records throughout (Bruce Banner,
+      This write-up documents a portfolio demonstration system (PST Academy) built to a standard suitable for review
+      in an interview, not a live client deployment. Names attached to test records throughout (Bruce Banner,
       Peter Parker, Steve Rogers) are fictional test personas, not real customers. Workflow internals
       (raw JSON, record IDs, credentials) are intentionally omitted; what follows is the reasoning,
       not the exportable source.
@@ -637,7 +637,7 @@
 
       <p>Built on WordPress and WooCommerce for this demo, but that's the swappable part, not the
       core. The trigger layer, whatever fires "a form was submitted" or "an order was paid", is
-      deliberately isolated from everything else: the dedup-by-email upsert, the no-regression
+      deliberately isolated from everything else: the upsert that dedupes by email, the no-regression
       guard, the atomic-claim pattern, the stage model itself. The design intent is that pointing
       the same board at Shopify and Stripe instead of WooCommerce, or Jotform instead of WPForms,
       would only mean swapping the trigger nodes; the security and reliability patterns underneath
@@ -767,7 +767,7 @@ If created_records.length == 0 ->  someone already won it  ->  stop, no duplicat
       email validation before an order could even be created, and separately, no mainstream email
       provider delivers to an address shaped that way in the first place, so even a different intake
       path couldn't get a real signed agreement in front of a real inbox to complete the loop. The
-      escaping stays in place as cheap, correct-in-principle defense, but the real finding is stronger
+      escaping stays in place as cheap defense that is correct in principle, but the real finding is stronger
       than "the code handles it": the legitimate path to exploit it is structurally closed, verified
       against the real checkout, not assumed.</p>
 
@@ -955,8 +955,8 @@ Every field populated: workflow name, failed node, error text, and an
       happens to call a different WordPress HTTP function with no such restriction, a coincidence of
       implementation choice that could just as easily have gone the other way and hidden this same
       block behind Inquiry instead.</p>
-      <p>Fixed with two narrowly-scoped filters explicitly allowing only localhost and the
-      automation's specific port, and documented as a local-demo-only workaround from the moment it
+      <p>Fixed with two narrowly scoped filters explicitly allowing only localhost and the
+      automation's specific port, and documented as a workaround for the local demo only, from the moment it
       was written, the same posture as the loopback-binding pattern above: a real client's automation
       engine sits behind a real public or tunneled URL, so this exact block, and this exact fix,
       would simply never come up there.</p>
@@ -1089,8 +1089,8 @@ Every field populated: workflow name, failed node, error text, and an
         </div>
         <h4>What happened</h4>
         <p>An early real test order surfaced a genuine problem: a contact who had inquired about one
-        tier ended up purchasing a different one, and their board card kept showing the stale,
-        originally-inquired tier even after advancing to Registered. The fix at the time was sound:
+        tier ended up purchasing a different one, and their board card kept showing the stale tier
+        they originally inquired about, even after advancing to Registered. The fix at the time was sound:
         make the order stage always pull Product/Tier from the real order's line item, since an order
         is the authoritative record of what someone actually bought.</p>
         <h4>Root cause</h4>
@@ -1103,8 +1103,8 @@ Every field populated: workflow name, failed node, error text, and an
         already signed, even already certified.</p>
         <h4>Why this one mattered more than a display bug</h4>
         <p>Product/Tier feeds directly into the CE certificate's hours calculation, 7 hours for Online
-        Training versus 14 for the in-person tier. A stray follow-up question from an already-paying,
-        already-certified customer could silently overwrite their purchased tier on the board. That's
+        Training versus 14 for the in-person tier. A stray follow-up question from a customer who had
+        already paid and already been certified could silently overwrite their purchased tier on the board. That's
         a real path to generating a certificate with the wrong CE hours for a paying customer, not a
         cosmetic glitch.</p>
         <h4>Fix and verification</h4>
@@ -1184,8 +1184,8 @@ Every field populated: workflow name, failed node, error text, and an
         executed successfully and treated that as proof it worked, without opening the message it
         actually produced.</p>
         <h4>Fix and verification</h4>
-        <p>Template corrected to read the correct nested path, matching the already-proven pattern
-        exactly. Re-verified with a fresh, real trigger, this time by actually reading the resulting
+        <p>Template corrected to read the correct nested path, matching exactly the pattern
+        already proven elsewhere. Re-verified with a fresh, real trigger, this time by actually reading the resulting
         email and Slack message, not just confirming they arrived. A system-wide audit followed
         immediately: every notification node in every workflow traced back to its real upstream data
         shape, checked against this exact failure pattern. Clean everywhere else.</p>
@@ -1224,8 +1224,8 @@ Every field populated: workflow name, failed node, error text, and an
         native node had been silently reformatting was now rejected by Airtable's date-only field
         until explicitly formatted, and a bearer token moved out of a node field into a proper stored
         credential. Verified against a real trigger, not assumed fixed once the write stopped
-        erroring. This same direct-API-write pattern is what produced the batch-response-shape bug
-        described above, a real tradeoff of an otherwise proven fix, not a free workaround.</p>
+        erroring. This same pattern of calling the API directly is what produced the bug
+        described above, where a batch write returned its data nested one level deeper, a real tradeoff of an otherwise proven fix, not a free workaround.</p>
       </div>
     </div>
 
@@ -1284,7 +1284,7 @@ Every field populated: workflow name, failed node, error text, and an
         fix; they weren't.</p>
         <h4>Root cause</h4>
         <p>Confirmed directly in the platform's own installed source rather than guessed: Gmail and
-        Slack attribution are two entirely separate, differently-named settings under the hood,
+        Slack attribution are two entirely separate settings, differently named under the hood,
         <code>appendAttribution</code> for Gmail versus <code>includeLinkToWorkflow</code> for Slack.
         Slack's defaults to <em>on</em> whenever it isn't explicitly set. Turning off Gmail's setting
         was never going to touch Slack's. The original fix simply didn't know the second setting
@@ -1401,7 +1401,7 @@ Every field populated: workflow name, failed node, error text, and an
       happened to succeed on the first attempt: genuine proof the retry configuration doesn't break
       anything, but zero direct proof retry actually <em>fires</em> under a real failure. Closing that
       gap meant deliberately breaking something on purpose: a genuinely invalid credential was swapped
-      onto a live, already-published node, and the real scheduled trigger was left to hit the real
+      onto a live node that was already published, and the real scheduled trigger was left to hit the real
       API with it, no synthetic payload, no mocked response.</p>
 
       <div class="evidence">
@@ -1489,7 +1489,7 @@ Credential restored -> next real scheduled run: ~2.2 seconds, back to normal</pr
         <h4>Form field mapping by type, not by ID</h4>
         <span class="risk-chip">Not a live bug: a tripwire</span>
       </div>
-      <p>The inquiry form's field-to-data mapping matches by field <em>type</em> (name, email, text,
+      <p>The inquiry form's mapping from field to data matches by field <em>type</em> (name, email, text,
       select) rather than the form builder's internal numeric field ID. The form builder in use is
       known to silently reassign those numeric IDs whenever the form is edited, with no warning: an
       ID-based mapping ("grab field #14 for the email") would misroute data the next time someone
