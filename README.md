@@ -89,7 +89,7 @@ merge, guarded against a Date Attended that falls before the agreement signature
 
 **[PST] Resend Certificate**
 ![Resend Certificate workflow](screenshots/n8n-08-resend-certificate.png)
-Staff utility, not a lifecycle stage. Lets an already-issued certificate be resent via an Airtable
+Staff utility, not a lifecycle stage. Lets a certificate that was already issued be resent via an Airtable
 checkbox, guarded against resending to a contact who was never actually certified.
 
 **[PST] Workflow failure → Alert team**
