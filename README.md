@@ -5,13 +5,16 @@ student, releases the course material, and issues a CE certificate once they att
 those steps normally means somebody watching an inbox, updating a spreadsheet, and remembering to
 follow up.
 
-This system does it instead. One Airtable board holds one row per person, one column per stage.
-Nine n8n workflows move that row forward when the person actually does something: submits an
-inquiry, completes an order, signs the agreement, gets marked attended. Along the way it sends the
-signing link, holds course access until the agreement is genuinely signed, generates a personalized
-certificate from a Google Slides template, and tells the team in Slack. Nothing advances by hand
-except where a person genuinely decides something: following up, correcting a mistake, approving a
-refund.
+This system does it instead. One Airtable board holds one row per person, one column per stage. Six
+of the nine n8n workflows move a row forward when something real happens: an inquiry submitted, an
+order completed, an agreement signed, a call logged, attendance confirmed. Two are supporting paths
+that deliberately advance no one, reissuing an expired signing link and resending a certificate on
+request. The ninth watches the other eight and reports any failure.
+
+Along the way the system sends the signing link, holds course access until the agreement is
+genuinely signed, generates a personalized certificate from a Google Slides template, and tells the
+team in Slack. Nothing advances by hand except where a person genuinely decides something: following
+up, correcting a mistake, approving a refund.
 
 **The engineering is the point.** Duplicate webhooks, replayed events, forged requests and silent
 failures are what break automations in production, and each has a specific defense here: idempotency
