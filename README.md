@@ -86,8 +86,8 @@ Verifies the signing link token with a constant time comparison (`crypto.timingS
 generates a brand new one time DocuSign session and redirects the customer straight into it. Also
 handles link resends: a 5 minute poller watches for a staff checked "Resend Signing Link" box on
 Airtable, claims it atomically, generates a fresh link through the same path as the original, and
-emails it, plus a separate cleanup poller that quietly unchecks that same box if it's ever checked
-on a customer who's already signed. Harmless, but it shouldn't sit there looking unresolved.
+emails it, plus a second branch off that same poller that quietly unchecks the box if it's ever
+checked on a customer who has already signed. Harmless, but it shouldn't sit there looking unresolved.
 
 **[PST] DocuSign completed → Agreement signed stage**
 ![Agreement Signed workflow](screenshots/n8n-06-agreement-signed.png)
@@ -142,10 +142,11 @@ never backward → fan out to team notifications in parallel, so one broken chan
 others. That pattern is documented once and reused across every stage, not reinvented per
 workflow.
 
-The specific timings are settings, not fixed architecture. The polling workflows run on 60s
-(`Contact logged → Contacted stage`), ~60 to 90s (`DocuSign completed → Agreement signed stage`), or
-5 minute (`Attendance confirmed → CE issued stage`, `Resend Certificate`) Schedule Triggers, and
-the alert workflow's duplicate suppression window is a separate 1 hour clock bucket. All of these
+The specific timings are settings, not fixed architecture. Five workflows poll on a Schedule
+Trigger: two every 60 seconds (`Contact logged → Contacted stage`, `DocuSign completed → Agreement
+signed stage`) and three every 5 minutes (`Attendance confirmed → CE issued stage`,
+`Resend Certificate`, `Sign Agreement Redirect`). The alert workflow's duplicate suppression window
+is a separate 1 hour clock bucket. All of these
 are single configuration values, not hardcoded assumptions, tuned to whatever polling cadence and
 alert noise tolerance an actual deployment needs.
 

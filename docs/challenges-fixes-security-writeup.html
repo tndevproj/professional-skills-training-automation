@@ -869,9 +869,10 @@ Credential restored -> next real run: 2.16 s, back to normal</pre>
 
       <p>That guard deliberately keeps its state inside the automation engine rather than in Airtable,
       even though Airtable is where this system stores everything else. An alerting path must not
-      depend on the thing most likely to be broken, and Airtable is exactly that: one credential feeds
-      eighteen nodes across every workflow, so routing the suppression check through Airtable would
-      mean an Airtable outage silences the alert about the Airtable outage.</p>
+      depend on the thing most likely to be broken, and Airtable is exactly that: 36 nodes reach it
+      across eight of the nine workflows, split between two credentials, so routing the suppression
+      check through Airtable would mean an Airtable outage silences the alert about the Airtable
+      outage. The ninth workflow is the alerting one, and it deliberately touches Airtable nowhere.</p>
 
       <div class="evidence">
         <div class="evidence-label">Real result: alerting under a genuine credential outage</div>
