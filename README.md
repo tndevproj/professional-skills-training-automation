@@ -1,11 +1,22 @@
 # Professional Skills Training: Lifecycle Automation
 
-A working, end to end customer lifecycle automation system: WordPress/WooCommerce storefront →
-n8n orchestration → Airtable CRM → DocuSign e signature → Google Slides certificate generation,
-with Slack/Gmail notifications and a shared error alerting workflow throughout. Built to
-demonstrate real automation engineering, not a workflow connector toy: idempotency guards against
-duplicate processing, HMAC/token verification on every inbound trigger, and every claim below is
-backed by a genuine live test, not a synthetic payload.
+A certification course business sells seats, collects a signed participation agreement from each
+student, releases the course material, and issues a CE certificate once they attend. Every one of
+those steps normally means somebody watching an inbox, updating a spreadsheet, and remembering to
+follow up.
+
+This system does it instead. One Airtable board holds one row per person, one column per stage.
+Nine n8n workflows move that row forward when the person actually does something: submits an
+inquiry, completes an order, signs the agreement, gets marked attended. Along the way it sends the
+signing link, holds course access until the agreement is genuinely signed, generates a personalized
+certificate from a Google Slides template, and tells the team in Slack. Nothing advances by hand
+except where a person genuinely decides something: following up, correcting a mistake, approving a
+refund.
+
+**The engineering is the point.** Duplicate webhooks, replayed events, forged requests and silent
+failures are what break automations in production, and each has a specific defense here: idempotency
+guards, HMAC and token verification on every inbound trigger, and a shared error alerting workflow
+behind all nine. Every claim below is backed by a genuine live test, not a synthetic payload.
 
 This is a portfolio/demonstration project. See [About This Project](#about-this-project) for scope
 and what's real vs. illustrative.
